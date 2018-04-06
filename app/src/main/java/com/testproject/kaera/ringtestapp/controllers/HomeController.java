@@ -1,13 +1,10 @@
 package com.testproject.kaera.ringtestapp.controllers;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -21,8 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
@@ -32,28 +27,19 @@ import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.changehandler.FabToDialogTransitionChangeHandler;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
+import com.testproject.kaera.ringtestapp.ui.HomeAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class HomeController extends BaseController {
 
-    private enum HomeScreen {
-        NAVIGATION("Navigation Demos", android.R.color.holo_red_dark),
-        TRANSITIONS("Transition Demos", android.R.color.holo_blue_dark),
-        SHARED_ELEMENT_TRANSITIONS("Shared Element Demos", android.R.color.holo_purple),
-        CHILD_CONTROLLERS("Child Controllers", android.R.color.holo_orange_dark),
-        VIEW_PAGER("ViewPager", android.R.color.holo_green_dark),
-        TARGET_CONTROLLER("Target Controller", android.R.color.holo_red_light),
-        MULTIPLE_CHILD_ROUTERS("Multiple Child Routers", android.R.color.holo_orange_light),
-        MASTER_DETAIL("Master Detail", android.R.color.holo_blue_light),
-        DRAG_DISMISS("Drag Dismiss", android.R.color.holo_green_light),
-        EXTERNAL_MODULES("Bonus Modules", android.R.color.darker_gray);
+    public enum HomeScreen {
+        NAVIGATION("Navigation Demos", android.R.color.holo_red_dark);
 
-        String title;
+        public String title;
         @ColorRes
-        int color;
+        public int color;
 
         HomeScreen(String title, @ColorRes int color) {
             this.title = title;
@@ -83,7 +69,9 @@ public class HomeController extends BaseController {
         super.onViewBound(view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new HomeAdapter(LayoutInflater.from(view.getContext()), HomeScreen.values()));
+        HomeAdapter adapter = new HomeAdapter(view.getContext(), HomeScreen.values());
+        adapter.setOnItemClickListener((holder, model) -> onModelRowClick(model));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -95,7 +83,6 @@ public class HomeController extends BaseController {
     @Override
     protected void onRestoreViewState(@NonNull View view, @NonNull Bundle savedViewState) {
         super.onRestoreViewState(view, savedViewState);
-
         //noinspection WrongConstant
         fab.setVisibility(savedViewState.getInt(KEY_FAB_VISIBILITY));
     }
@@ -131,6 +118,7 @@ public class HomeController extends BaseController {
         onFabClicked(true);
     }
 
+    // Show dialog sample
     private void onFabClicked(boolean fromFab) {
         SpannableString details = new SpannableString("A small, yet full-featured framework that allows building View-based Android applications");
         details.setSpan(new AbsoluteSizeSpan(16, true), 0, details.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -159,7 +147,7 @@ public class HomeController extends BaseController {
 
     }
 
-    void onModelRowClick(HomeScreen model, int position) {
+    void onModelRowClick(HomeScreen model) {
         switch (model) {
             case NAVIGATION:
                 getRouter().pushController(RouterTransaction.with(new NavigationDemoController(0, NavigationDemoController.DisplayUpMode.SHOW_FOR_CHILDREN_ONLY))
@@ -168,110 +156,6 @@ public class HomeController extends BaseController {
                         .tag(NavigationDemoController.TAG_UP_TRANSACTION)
                 );
                 break;
-//            case TRANSITIONS:
-//                getRouter().pushController(TransitionDemoController.getRouterTransaction(0, this));
-//                break;
-//            case TARGET_CONTROLLER:
-//                getRouter().pushController(
-//                        RouterTransaction.with(new TargetDisplayController())
-//                                .pushChangeHandler(new FadeChangeHandler())
-//                                .popChangeHandler(new FadeChangeHandler()));
-//                break;
-//            case VIEW_PAGER:
-//                getRouter().pushController(RouterTransaction.with(new PagerController())
-//                        .pushChangeHandler(new FadeChangeHandler())
-//                        .popChangeHandler(new FadeChangeHandler()));
-//                break;
-//            case CHILD_CONTROLLERS:
-//                getRouter().pushController(RouterTransaction.with(new ParentController())
-//                        .pushChangeHandler(new FadeChangeHandler())
-//                        .popChangeHandler(new FadeChangeHandler()));
-//                break;
-//            case SHARED_ELEMENT_TRANSITIONS:
-//                String titleSharedElementName = getResources().getString(R.string.transition_tag_title_indexed, position);
-//                String dotSharedElementName = getResources().getString(R.string.transition_tag_dot_indexed, position);
-//
-//                getRouter().pushController(RouterTransaction.with(new CityGridController(model.title, model.color, position))
-//                        .pushChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName))
-//                        .popChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName)));
-//                break;
-//            case DRAG_DISMISS:
-//                getRouter().pushController(RouterTransaction.with(new DragDismissController())
-//                        .pushChangeHandler(new FadeChangeHandler(false))
-//                        .popChangeHandler(new FadeChangeHandler()));
-//                break;
-//            case EXTERNAL_MODULES:
-//                getRouter().pushController(RouterTransaction.with(new ExternalModulesController())
-//                        .pushChangeHandler(new HorizontalChangeHandler())
-//                        .popChangeHandler(new HorizontalChangeHandler()));
-//                break;
-//            case MULTIPLE_CHILD_ROUTERS:
-//                getRouter().pushController(RouterTransaction.with(new MultipleChildRouterController())
-//                        .pushChangeHandler(new FadeChangeHandler())
-//                        .popChangeHandler(new FadeChangeHandler()));
-//                break;
-//            case MASTER_DETAIL:
-//                getRouter().pushController(RouterTransaction.with(new MasterDetailListController())
-//                        .pushChangeHandler(new FadeChangeHandler())
-//                        .popChangeHandler(new FadeChangeHandler()));
-//                break;
-        }
-    }
-
-    class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-
-        private final LayoutInflater inflater;
-        private final HomeScreen[] items;
-
-        public HomeAdapter(LayoutInflater inflater, HomeScreen[] items) {
-            this.inflater = inflater;
-            this.items = items;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(inflater.inflate(R.layout.row_home, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.bind(position, items[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.length;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-
-            @BindView(R.id.tv_title)
-            TextView tvTitle;
-            @BindView(R.id.img_dot)
-            ImageView imgDot;
-            private HomeScreen model;
-            private int position;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
-            }
-
-            void bind(int position, HomeScreen item) {
-                model = item;
-                tvTitle.setText(item.title);
-                imgDot.getDrawable().setColorFilter(ContextCompat.getColor(getActivity(), item.color), PorterDuff.Mode.SRC_ATOP);
-                this.position = position;
-
-                ViewCompat.setTransitionName(tvTitle, getResources().getString(R.string.transition_tag_title_indexed, position));
-                ViewCompat.setTransitionName(imgDot, getResources().getString(R.string.transition_tag_dot_indexed, position));
-            }
-
-            @OnClick(R.id.row_root)
-            void onRowClick() {
-                onModelRowClick(model, position);
-            }
-
         }
     }
 }
