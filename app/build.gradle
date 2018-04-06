@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -27,15 +31,18 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.ext.rxbindingVersion"
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+
     implementation "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion" // if you use the support libraries
+    implementation "com.bluelinelabs:conductor:$rootProject.ext.conductorVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
-
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakCanaryVersion"
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 }
