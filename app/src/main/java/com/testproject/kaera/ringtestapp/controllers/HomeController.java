@@ -28,7 +28,6 @@ import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
-import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler;
 import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.changehandler.FabToDialogTransitionChangeHandler;
@@ -163,59 +162,59 @@ public class HomeController extends BaseController {
     void onModelRowClick(HomeScreen model, int position) {
         switch (model) {
             case NAVIGATION:
-                getRouter().pushController(RouterTransaction.with(new NavigationDemoController(0, DisplayUpMode.SHOW_FOR_CHILDREN_ONLY))
+                getRouter().pushController(RouterTransaction.with(new NavigationDemoController(0, NavigationDemoController.DisplayUpMode.SHOW_FOR_CHILDREN_ONLY))
                         .pushChangeHandler(new FadeChangeHandler())
                         .popChangeHandler(new FadeChangeHandler())
                         .tag(NavigationDemoController.TAG_UP_TRANSACTION)
                 );
                 break;
-            case TRANSITIONS:
-                getRouter().pushController(TransitionDemoController.getRouterTransaction(0, this));
-                break;
-            case TARGET_CONTROLLER:
-                getRouter().pushController(
-                        RouterTransaction.with(new TargetDisplayController())
-                                .pushChangeHandler(new FadeChangeHandler())
-                                .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case VIEW_PAGER:
-                getRouter().pushController(RouterTransaction.with(new PagerController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case CHILD_CONTROLLERS:
-                getRouter().pushController(RouterTransaction.with(new ParentController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case SHARED_ELEMENT_TRANSITIONS:
-                String titleSharedElementName = getResources().getString(R.string.transition_tag_title_indexed, position);
-                String dotSharedElementName = getResources().getString(R.string.transition_tag_dot_indexed, position);
-
-                getRouter().pushController(RouterTransaction.with(new CityGridController(model.title, model.color, position))
-                        .pushChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName))
-                        .popChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName)));
-                break;
-            case DRAG_DISMISS:
-                getRouter().pushController(RouterTransaction.with(new DragDismissController())
-                        .pushChangeHandler(new FadeChangeHandler(false))
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case EXTERNAL_MODULES:
-                getRouter().pushController(RouterTransaction.with(new ExternalModulesController())
-                        .pushChangeHandler(new HorizontalChangeHandler())
-                        .popChangeHandler(new HorizontalChangeHandler()));
-                break;
-            case MULTIPLE_CHILD_ROUTERS:
-                getRouter().pushController(RouterTransaction.with(new MultipleChildRouterController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
-            case MASTER_DETAIL:
-                getRouter().pushController(RouterTransaction.with(new MasterDetailListController())
-                        .pushChangeHandler(new FadeChangeHandler())
-                        .popChangeHandler(new FadeChangeHandler()));
-                break;
+//            case TRANSITIONS:
+//                getRouter().pushController(TransitionDemoController.getRouterTransaction(0, this));
+//                break;
+//            case TARGET_CONTROLLER:
+//                getRouter().pushController(
+//                        RouterTransaction.with(new TargetDisplayController())
+//                                .pushChangeHandler(new FadeChangeHandler())
+//                                .popChangeHandler(new FadeChangeHandler()));
+//                break;
+//            case VIEW_PAGER:
+//                getRouter().pushController(RouterTransaction.with(new PagerController())
+//                        .pushChangeHandler(new FadeChangeHandler())
+//                        .popChangeHandler(new FadeChangeHandler()));
+//                break;
+//            case CHILD_CONTROLLERS:
+//                getRouter().pushController(RouterTransaction.with(new ParentController())
+//                        .pushChangeHandler(new FadeChangeHandler())
+//                        .popChangeHandler(new FadeChangeHandler()));
+//                break;
+//            case SHARED_ELEMENT_TRANSITIONS:
+//                String titleSharedElementName = getResources().getString(R.string.transition_tag_title_indexed, position);
+//                String dotSharedElementName = getResources().getString(R.string.transition_tag_dot_indexed, position);
+//
+//                getRouter().pushController(RouterTransaction.with(new CityGridController(model.title, model.color, position))
+//                        .pushChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName))
+//                        .popChangeHandler(new ArcFadeMoveChangeHandlerCompat(titleSharedElementName, dotSharedElementName)));
+//                break;
+//            case DRAG_DISMISS:
+//                getRouter().pushController(RouterTransaction.with(new DragDismissController())
+//                        .pushChangeHandler(new FadeChangeHandler(false))
+//                        .popChangeHandler(new FadeChangeHandler()));
+//                break;
+//            case EXTERNAL_MODULES:
+//                getRouter().pushController(RouterTransaction.with(new ExternalModulesController())
+//                        .pushChangeHandler(new HorizontalChangeHandler())
+//                        .popChangeHandler(new HorizontalChangeHandler()));
+//                break;
+//            case MULTIPLE_CHILD_ROUTERS:
+//                getRouter().pushController(RouterTransaction.with(new MultipleChildRouterController())
+//                        .pushChangeHandler(new FadeChangeHandler())
+//                        .popChangeHandler(new FadeChangeHandler()));
+//                break;
+//            case MASTER_DETAIL:
+//                getRouter().pushController(RouterTransaction.with(new MasterDetailListController())
+//                        .pushChangeHandler(new FadeChangeHandler())
+//                        .popChangeHandler(new FadeChangeHandler()));
+//                break;
         }
     }
 

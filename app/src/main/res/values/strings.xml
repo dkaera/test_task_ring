@@ -10,4 +10,10 @@
     <string name="transition_tag_title_indexed">transition.title%1$d</string>
     <string name="transition_tag_image_named">transition.image%1$s</string>
     <string name="transition_tag_title_named">transition.title%1$s</string>
+
+    <!-- Navigation Demo -->
+    <string name="pop_to_root">Pop to Root</string>
+    <string name="go_up">Go Up</string>
+    <string name="next_controller">Next Controller</string>
+    <string name="navigation_title">Controller #%1$d</string>
 </resources>
