@@ -27,7 +27,6 @@ public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder>
     private RecyclerViewAdapter.OnLongItemClickListener longClickListener;
     private RecyclerViewAdapter.OnItemClickListener clickListener;
 
-
     public RecyclerViewAdapter(@NonNull List<T> items) {
         this.items = items;
     }
@@ -48,6 +47,7 @@ public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder>
         this.longClickListener = longClickListener;
     }
 
+    @SuppressWarnings("unchecked")
     public void onViewAttachedToWindow(final VH holder) {
         RxView.clicks(holder.itemView)
                 .filter(empty -> clickListener != null)

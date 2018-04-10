@@ -7,7 +7,7 @@ ext {
     versionName = "1.0"
 
     supportVersion = '27.1.0'
-    daggerVersion = '2.+'
+    daggerVersion = '2.14.1'
 
     // Square
     picassoVersion = '2.71828'

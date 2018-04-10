@@ -12,6 +12,7 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,14 +26,20 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;
 import com.testproject.kaera.ringtestapp.R;
+import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.changehandler.FabToDialogTransitionChangeHandler;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.ui.HomeAdapter;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HomeController extends BaseController {
+public class HomeController extends InjectorController {
+
+    @Inject
+    RingApplication application;
 
     public enum HomeScreen {
         NAVIGATION("Navigation Demos", android.R.color.holo_red_dark);
@@ -61,6 +68,7 @@ public class HomeController extends BaseController {
     @NonNull
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        Log.e("TAG", "HomeController " + application);
         return inflater.inflate(R.layout.controller_home, container, false);
     }
 

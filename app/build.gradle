@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.testproject.kaera.ringtestapp"
@@ -21,8 +21,8 @@ android {
         }
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -30,16 +30,33 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
-    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+    // RxBinding
     implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.ext.rxbindingVersion"
+    // RxLifecircle
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
-
-    implementation "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
+    // Conductor
     implementation "com.bluelinelabs:conductor:$rootProject.ext.conductorVersion"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    // Dagger
+    implementation "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+//    implementation "com.google.dagger:dagger-android:$rootProject.ext.daggerVersion"
+//    implementation "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
+//    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+    //LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakCanaryVersion"
+
+    implementation 'com.github.techery:janet:1.0.7'
+    implementation 'com.github.techery:janet-command:1.0.5'
+    implementation 'com.github.techery.janet-http:service:1.0.11'
+    annotationProcessor 'com.github.techery.janet-http:service-compiler:1.0.11'
+    implementation 'com.github.techery.janet-http:client-okhttp3:1.0.6'
+    implementation 'com.github.techery.janet-converters:gson:1.0.2'
+
+    // Tests
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
