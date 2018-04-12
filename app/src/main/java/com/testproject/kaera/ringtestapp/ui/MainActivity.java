@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
         setSupportActionBar(toolbar);
         RingApplication.getComponent().inject(this);
 
-        Log.e("TAG", "MainActivity " + application);
-
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) router.setRoot(RouterTransaction.with(new HomeController()));
     }

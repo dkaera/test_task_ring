@@ -5,16 +5,24 @@ ext {
     buildToolsVersion = '27.0.3'
     versionCode = 1
     versionName = "1.0"
-
+    //Support lib
     supportVersion = '27.1.0'
     daggerVersion = '2.14.1'
-
-    // Square
+    //Square
     picassoVersion = '2.71828'
     leakCanaryVersion = '1.5.4'
     butterknifeVersion = '8.8.1'
     conductorVersion = '2.1.4'
     rxbindingVersion = '2.1.1'
+    okHttpVersion = '3.10.0'
+    //Janet
+    janetVersion = '1.0.7'
+    janetCommandVersion = '1.0.5'
+    janetHttpServiceVersion = '1.0.11'
+    janetHttpClientVersion = '1.0.6'
+    janetConvertorVersion = '1.0.2'
+    //GSON
+    gsonVersion = '2.1.1'
 
 //    junitVersion = '4.11'
 //    roboelectricVersion = '3.0'

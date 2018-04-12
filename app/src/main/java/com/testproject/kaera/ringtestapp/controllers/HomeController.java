@@ -36,7 +36,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HomeController extends InjectorController {
+public class HomeController extends BaseController {
 
     @Inject
     RingApplication application;
@@ -68,7 +68,6 @@ public class HomeController extends InjectorController {
     @NonNull
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        Log.e("TAG", "HomeController " + application);
         return inflater.inflate(R.layout.controller_home, container, false);
     }
 

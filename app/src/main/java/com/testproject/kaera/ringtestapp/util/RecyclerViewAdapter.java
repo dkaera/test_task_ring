@@ -3,16 +3,11 @@ package com.testproject.kaera.ringtestapp.util;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.jakewharton.rxbinding2.view.RxView;
-import com.trello.rxlifecycle2.RxLifecycle;
-import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static com.trello.rxlifecycle2.android.RxLifecycleAndroid.bindView;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
