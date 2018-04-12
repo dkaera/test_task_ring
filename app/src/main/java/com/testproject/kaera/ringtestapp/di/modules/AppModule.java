@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = {ApiModule.class, JanetModule.class})
+@Module(includes = {ApiModule.class, JanetModule.class, PipeModule.class})
 public class AppModule {
 
     private RingApplication application;

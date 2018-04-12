@@ -29,17 +29,16 @@ import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.changehandler.FabToDialogTransitionChangeHandler;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
+import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
 import com.testproject.kaera.ringtestapp.ui.HomeAdapter;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.techery.janet.ActionPipe;
 
 public class HomeController extends BaseController {
-
-    @Inject
-    RingApplication application;
 
     public enum HomeScreen {
         NAVIGATION("Navigation Demos", android.R.color.holo_red_dark);

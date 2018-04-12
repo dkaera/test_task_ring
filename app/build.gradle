@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'
     // Picasso
     implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    // RxJava2
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxJava2Version"
     // RxBinding
     implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.ext.rxbindingVersion"
     // RxLifecircle

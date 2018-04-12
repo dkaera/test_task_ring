@@ -11,6 +11,7 @@ import com.testproject.kaera.ringtestapp.ui.ActionBarProvider;
 public abstract class BaseController extends RefWatchingController {
 
     public BaseController() {
+        super();
     }
 
     public BaseController(Bundle args) {

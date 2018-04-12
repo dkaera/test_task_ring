@@ -12,16 +12,18 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.HomeController;
+import com.testproject.kaera.ringtestapp.controllers.LoginController;
+import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.techery.janet.ActionPipe;
+import rx.functions.Action1;
 
 import static butterknife.ButterKnife.*;
 
 public class MainActivity extends AppCompatActivity implements ActionBarProvider {
-
-    @Inject RingApplication application;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
         RingApplication.getComponent().inject(this);
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
-        if (!router.hasRootController()) router.setRoot(RouterTransaction.with(new HomeController()));
+        if (!router.hasRootController()) router.setRoot(RouterTransaction.with(new LoginController()));
     }
 
     @Override

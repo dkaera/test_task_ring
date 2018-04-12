@@ -23,6 +23,9 @@ ext {
     janetConvertorVersion = '1.0.2'
     //GSON
     gsonVersion = '2.1.1'
+    //RX
+    rxJava2Version = '2.1.12'
+
 
 //    junitVersion = '4.11'
 //    roboelectricVersion = '3.0'

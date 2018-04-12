@@ -12,6 +12,7 @@ public abstract class RefWatchingController extends ButterKnifeController {
     private boolean hasExited;
 
     public RefWatchingController() {
+        super();
     }
 
     public RefWatchingController(Bundle args) {

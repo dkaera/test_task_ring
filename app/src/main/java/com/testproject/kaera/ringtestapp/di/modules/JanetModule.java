@@ -6,7 +6,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.techery.janet.ActionService;
 import io.techery.janet.CommandActionService;
 import io.techery.janet.HttpActionService;
 import io.techery.janet.Janet;
@@ -18,20 +17,10 @@ public class JanetModule {
 
     @Provides
     @Singleton
-    CommandActionService provideCommandService() {
-        return new CommandActionService();
-    }
-
-    @Provides()
-    @Singleton
-    HttpActionService provideHttpService(HttpClient client, Gson gson) {
-        //TODO:: Add base URL
-        return new HttpActionService("base URL", client, new GsonConverter(gson));
-    }
-
-    @Provides
-    @Singleton
-    Janet provideJanet(ActionService service) {
-        return new Janet.Builder().addService(service).build();
+    Janet provideJanet(HttpClient client, Gson gson) {
+        return new Janet.Builder()
+                .addService(new HttpActionService("https://www.reddit.com/r/redditdev/", client, new GsonConverter(gson)))
+                .addService(new CommandActionService())
+                .build();
     }
 }
