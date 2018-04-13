@@ -1,5 +1,7 @@
 package com.testproject.kaera.ringtestapp.service.adapter;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -30,10 +32,22 @@ public class APIRedditItemAdapter implements JsonDeserializer<List<APIRedditItem
         List<APIRedditItem> redditItems = new ArrayList<>();
         for (JsonElement jsonElement : asJsonArray) {
             JsonObject asJsonObject = jsonElement.getAsJsonObject().getAsJsonObject("data");
+            String thumbFullSize = asJsonObject.has("preview") ? getFullSizeThumb(asJsonObject) : "";
             APIRedditItem parsedItem = gson.fromJson(asJsonObject, APIRedditItem.class);
+            parsedItem.setThumbFullSize(thumbFullSize);
             parsedItem.setCreatedDate(new Date(TimeUnit.SECONDS.toMillis(parsedItem.getCreated())));
             redditItems.add(parsedItem);
         }
         return redditItems;
+    }
+
+    private String getFullSizeThumb(JsonObject asJsonObject) {
+        return asJsonObject.getAsJsonObject("preview")
+                .getAsJsonArray("images")
+                .get(0)
+                .getAsJsonObject()
+                .getAsJsonObject("source")
+                .getAsJsonPrimitive("url")
+                .getAsString();
     }
 }

@@ -5,6 +5,8 @@ import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+
 public class StaticCache {
 
     private List<APIRedditItem> cachedData;
@@ -13,8 +15,15 @@ public class StaticCache {
         this.cachedData = new ArrayList<>();
     }
 
-    public void writeData(List<APIRedditItem> data) {
-        this.cachedData.addAll(data);
+    public Observable<List<APIRedditItem>> writeData(List<APIRedditItem> data) {
+        return Observable.from(cachedData).mergeWith(Observable.from(data))
+                .distinct()
+                .toList()
+                .map(items -> {
+                    cachedData.clear();
+                    cachedData.addAll(items);
+                    return cachedData;
+                });
     }
 
     public List<APIRedditItem> readData() {

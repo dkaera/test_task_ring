@@ -32,6 +32,7 @@ public class APIRedditItem {
     private String title;
 
     private Date createdDate;
+    private String thumbFullSize;
 
     public int getCommentsCount() {
         return commentsCount;
@@ -92,14 +93,24 @@ public class APIRedditItem {
         this.createdDate = createdDate;
     }
 
+    public String getThumbFullSize() {
+        return thumbFullSize;
+    }
+
+    public void setThumbFullSize(String thumbFullSize) {
+        this.thumbFullSize = thumbFullSize;
+    }
+
     @Override public String toString() {
         return "APIRedditItem{" +
-                "numComments=" + commentsCount +
+                "commentsCount=" + commentsCount +
                 ", created=" + created +
                 ", name='" + name + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
+                ", createdDate=" + createdDate +
+                ", thumbFullSize='" + thumbFullSize + '\'' +
                 '}';
     }
 
@@ -107,11 +118,15 @@ public class APIRedditItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         APIRedditItem that = (APIRedditItem) o;
-        return Objects.equals(name, that.name);
+        return commentsCount == that.commentsCount &&
+                created == that.created &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(thumbnail, that.thumbnail) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(title, that.title);
     }
 
     @Override public int hashCode() {
-
-        return Objects.hash(name);
+        return Objects.hash(commentsCount, created, name, thumbnail, author, title);
     }
 }

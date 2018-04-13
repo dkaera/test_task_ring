@@ -64,11 +64,6 @@ public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder>
         return items.size();
     }
 
-    public void putData(List<T> items) {
-        this.items.addAll(items);
-        notifyDataSetChanged();
-    }
-
     public interface OnItemClickListener<T, VH extends RecyclerView.ViewHolder> {
         void onItemClicked(VH holder, T item);
     }

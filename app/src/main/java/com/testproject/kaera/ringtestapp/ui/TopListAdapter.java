@@ -2,7 +2,7 @@ package com.testproject.kaera.ringtestapp.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +14,10 @@ import com.squareup.picasso.Picasso;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewAdapter;
+import com.testproject.kaera.ringtestapp.ui.util.TopItemsDiffUtilCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,7 +30,6 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
     private static final String authorPrefix = "submitted by %s";
 
     private final LayoutInflater inflater;
-    private final Context context;
 
     private OnThumbnailClick thumbnailClickListener = item -> {
         // empty
@@ -37,7 +38,6 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
     public TopListAdapter(Context context) {
         super(null);
         this.inflater = LayoutInflater.from(context);
-        this.context = context;
     }
 
     @Override
@@ -82,6 +82,20 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
 
     public void setThumbnailClickListener(OnThumbnailClick thumbnailClickListener) {
         this.thumbnailClickListener = thumbnailClickListener;
+    }
+
+    public void swap(List<APIRedditItem> items) {
+        TopItemsDiffUtilCallback diffCallback = new TopItemsDiffUtilCallback(this.items, items);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+        this.items.clear();
+        this.items.addAll(items);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    public void setData(List<APIRedditItem> items) {
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
     }
 
     public interface OnThumbnailClick {

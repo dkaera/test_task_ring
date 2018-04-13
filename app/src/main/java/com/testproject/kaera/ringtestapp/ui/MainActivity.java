@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
     private void processRouter(Bundle savedInstanceState) {
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (router.hasRootController()) return;
-//        boolean isAuthCodeExist = preferences.getString(Constants.KEY_AUTH_CODE).isSet();
-//        router.setRoot(RouterTransaction.with(isAuthCodeExist ? new HomeController() : new TopListController()));
         router.setRoot(RouterTransaction.with(new TopListController()));
     }
 

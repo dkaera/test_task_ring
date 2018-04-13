@@ -22,9 +22,11 @@ public class GetTopSubredditCommand extends Command<List<APIRedditItem>> {
     private int count;
     private String after;
     private List<APIRedditItem> receivedData;
+    private boolean fromCache;
 
-    public GetTopSubredditCommand() {
+    public GetTopSubredditCommand(boolean fromCache) {
         this(null, 0);
+        this.fromCache = fromCache;
     }
 
     public GetTopSubredditCommand(String afterId, int count) {
@@ -35,19 +37,16 @@ public class GetTopSubredditCommand extends Command<List<APIRedditItem>> {
     }
 
     @Override protected void run(CommandCallback callback) throws Throwable {
-        if (!receivedData.isEmpty()) {
-            callback.onProgress(50);
+        if (fromCache && !receivedData.isEmpty()) {
+            callback.onSuccess(receivedData);
+            return;
         }
 
         janet.createPipe(GetTopSubredditAction.class)
                 .createObservableResult(new GetTopSubredditAction(count, after))
                 .map(action -> action.getResult())
-                .doOnNext(data -> receivedData.addAll(data))
-                .doOnNext(data -> cache.writeData(receivedData))
+                .flatMap(data -> cache.writeData(data))
+                .doOnNext(data -> receivedData = data)
                 .subscribe(callback::onSuccess, Throwable::printStackTrace);
-    }
-
-    public List<APIRedditItem> getCachedData() {
-        return receivedData;
     }
 }
