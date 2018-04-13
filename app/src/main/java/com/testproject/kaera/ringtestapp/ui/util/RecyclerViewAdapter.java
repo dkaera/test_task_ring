@@ -1,4 +1,4 @@
-package com.testproject.kaera.ringtestapp.util;
+package com.testproject.kaera.ringtestapp.ui.util;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -19,7 +19,7 @@ public class JanetModule {
     @Singleton
     Janet provideJanet(HttpClient client, Gson gson) {
         return new Janet.Builder()
-                .addService(new HttpActionService("https://www.reddit.com/r/redditdev/", client, new GsonConverter(gson)))
+                .addService(new HttpActionService("https://www.reddit.com/", client, new GsonConverter(gson)))
                 .addService(new CommandActionService())
                 .build();
     }

@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
-import com.bluelinelabs.conductor.changehandler.TransitionChangeHandlerCompat;
 import com.testproject.kaera.ringtestapp.R;
-import com.testproject.kaera.ringtestapp.changehandler.FabToDialogTransitionChangeHandler;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 
 import butterknife.OnClick;
@@ -31,7 +28,7 @@ public class LoginController extends BaseController {
         super.onAttach(view);
     }
 
-    @OnClick(R.id.action_button)
+    @OnClick(R.id.auth_button)
     void onActionButtonClick() {
         getRouter()
                 .pushController(RouterTransaction.with(new AuthDialogController())

@@ -44,6 +44,8 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:$rootProject.ext.rxbindingVersion"
     // RxLifecircle
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    // RxPreferences
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
     // Conductor
     implementation "com.bluelinelabs:conductor:$rootProject.ext.conductorVersion"
     // Dagger

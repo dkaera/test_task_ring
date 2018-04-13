@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.controllers.HomeController.HomeScreen;
-import com.testproject.kaera.ringtestapp.util.RecyclerViewAdapter;
+import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

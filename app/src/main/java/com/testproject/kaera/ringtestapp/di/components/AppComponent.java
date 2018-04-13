@@ -1,5 +1,6 @@
 package com.testproject.kaera.ringtestapp.di.components;
 
+import com.testproject.kaera.ringtestapp.controllers.AuthDialogController;
 import com.testproject.kaera.ringtestapp.controllers.HomeController;
 import com.testproject.kaera.ringtestapp.controllers.LoginController;
 import com.testproject.kaera.ringtestapp.di.modules.AppModule;
@@ -21,4 +22,6 @@ public interface AppComponent extends PipeComponent {
     void inject(AuthenticateCommand authenticateCommand);
 
     void inject(LoginController loginController);
+
+    void inject(AuthDialogController authDialogController);
 }

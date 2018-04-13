@@ -1,6 +1,5 @@
 package com.testproject.kaera.ringtestapp.controllers;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,28 +15,39 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.testproject.kaera.ringtestapp.R;
+import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
+import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
+import com.testproject.kaera.ringtestapp.service.util.RxPreferences;
+import com.testproject.kaera.ringtestapp.util.Constants;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
+import io.techery.janet.ActionPipe;
 
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.testproject.kaera.ringtestapp.util.Constants.CLIENT_ID;
+import static com.testproject.kaera.ringtestapp.util.Constants.REDIRECT_URI;
 
 public class AuthDialogController extends BaseController {
 
-    private static String CLIENT_ID = "6EDgCzywHhEoiQ";
-    private static String REDIRECT_URI = "http://www.example.com/redirect";
     private static final String BASE_AUTH_URL = "https://www.reddit.com/api/v1/authorize.compact?client_id=%s&response_type=code&state=%s&redirect_uri=%s&duration=permanent&scope=read";
     private static final String STATE = "TEST";
     private static final String AUTH_URL = String.format(BASE_AUTH_URL, CLIENT_ID, STATE, REDIRECT_URI);
 
     private String authCode;
-    private Intent resultIntent = new Intent();
     private boolean restored;
 
-    @BindView(R.id.web_view)
-    WebView webView;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
+    @BindView(R.id.web_view) WebView webView;
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
+
+    @Inject RxPreferences preferences;
+    @Inject ActionPipe<AuthenticateCommand> authenticateCommand;
 
     public AuthDialogController(Bundle args) {
         super(args);
@@ -45,6 +55,13 @@ public class AuthDialogController extends BaseController {
 
     public AuthDialogController() {
         super();
+    }
+
+    @NonNull
+    @Override
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        RingApplication.getComponent().inject(this);
+        return super.onCreateView(inflater, container);
     }
 
     @Override
@@ -91,13 +108,13 @@ public class AuthDialogController extends BaseController {
                 if (url.contains("?code=") || url.contains("&code=")) {
                     Uri uri = Uri.parse(url);
                     authCode = uri.getQueryParameter("code");
-                    Log.e("TAG", "CODE : " + authCode);
-                    resultIntent.putExtra("code", authCode);
+                    preferences.getString(Constants.KEY_AUTH_CODE).set(authCode);
+
+                    Log.d("TAG", "CODE : " + authCode);
                     Toast.makeText(getApplicationContext(), "Authorization Code is: " + authCode, Toast.LENGTH_SHORT).show();
-                    getRouter().popController(AuthDialogController.this);
+                    authenticateCommand.send(new AuthenticateCommand());
                 } else if (url.contains("error=access_denied")) {
-                    Log.e("TAG", "ACCESS_DENIED_HERE");
-                    resultIntent.putExtra("code", authCode);
+                    Log.d("TAG", "ACCESS_DENIED_HERE");
                     Toast.makeText(getApplicationContext(), "Error Occured", Toast.LENGTH_SHORT).show();
                     getRouter().popController(AuthDialogController.this);
                 }
@@ -108,5 +125,12 @@ public class AuthDialogController extends BaseController {
     private void showProgress(boolean visible) {
         progressBar.setVisibility(visible ? VISIBLE : GONE);
         webView.setVisibility(visible ? GONE : VISIBLE);
+    }
+
+    @Override protected void onViewBound(@NonNull View view) {
+        super.onViewBound(view);
+        authenticateCommand.observeSuccess()
+                .map(command -> command.getResult())
+                .subscribe(s -> Log.e("TAG", "onSubscribe value " + s));
     }
 }

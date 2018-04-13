@@ -1,9 +1,6 @@
 package com.testproject.kaera.ringtestapp.di.modules;
 
-import com.testproject.kaera.ringtestapp.service.api.AuthenticateAction;
 import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
-
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,17 +12,7 @@ import rx.schedulers.Schedulers;
 public class PipeModule {
 
     @Provides
-    ActionPipe<AuthenticateAction> provideAuthenticateAction(Janet janet) {
-        return createPipe(AuthenticateAction.class, janet);
-    }
-
-    @Provides
     ActionPipe<AuthenticateCommand> provideAuthenticateCommand(Janet janet) {
-        return createPipe(AuthenticateCommand.class, janet);
-    }
-
-    private <T> ActionPipe<T> createPipe(Class<T> clazz, Janet janet) {
-        ActionPipe pipe = janet.createPipe(clazz, Schedulers.io());
-        return pipe;
+        return janet.createPipe(AuthenticateCommand.class, Schedulers.io());
     }
 }

@@ -8,6 +8,16 @@ import android.view.View;
 import com.bluelinelabs.conductor.Controller;
 import com.testproject.kaera.ringtestapp.ui.ActionBarProvider;
 
+import java.util.concurrent.Callable;
+
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+
+import static com.trello.rxlifecycle2.android.RxLifecycleAndroid.bindView;
+
 public abstract class BaseController extends RefWatchingController {
 
     public BaseController() {
@@ -21,7 +31,7 @@ public abstract class BaseController extends RefWatchingController {
     // Note: This is just a quick demo of how an ActionBar *can* be accessed, not necessarily how it *should*
     // be accessed. In a production app, this would use Dagger instead.
     protected ActionBar getActionBar() {
-        ActionBarProvider actionBarProvider = ((ActionBarProvider)getActivity());
+        ActionBarProvider actionBarProvider = ((ActionBarProvider) getActivity());
         return actionBarProvider != null ? actionBarProvider.getSupportActionBar() : null;
     }
 
@@ -34,7 +44,7 @@ public abstract class BaseController extends RefWatchingController {
     protected void setTitle() {
         Controller parentController = getParentController();
         while (parentController != null) {
-            if (parentController instanceof BaseController && ((BaseController)parentController).getTitle() != null) {
+            if (parentController instanceof BaseController && ((BaseController) parentController).getTitle() != null) {
                 return;
             }
             parentController = parentController.getParentController();

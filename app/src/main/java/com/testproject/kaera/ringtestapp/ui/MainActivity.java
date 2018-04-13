@@ -3,7 +3,6 @@ package com.testproject.kaera.ringtestapp.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Conductor;
@@ -13,22 +12,21 @@ import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.HomeController;
 import com.testproject.kaera.ringtestapp.controllers.LoginController;
-import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
+import com.testproject.kaera.ringtestapp.service.util.RxPreferences;
+import com.testproject.kaera.ringtestapp.util.Constants;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.techery.janet.ActionPipe;
-import rx.functions.Action1;
 
 import static butterknife.ButterKnife.*;
 
 public class MainActivity extends AppCompatActivity implements ActionBarProvider {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.controller_container)
-    ViewGroup container;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.controller_container) ViewGroup container;
+
+    @Inject RxPreferences preferences;
 
     private Router router;
 
@@ -39,9 +37,15 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
         bind(this);
         setSupportActionBar(toolbar);
         RingApplication.getComponent().inject(this);
+        processRouter(savedInstanceState);
+    }
 
+    private void processRouter(Bundle savedInstanceState) {
         router = Conductor.attachRouter(this, container, savedInstanceState);
-        if (!router.hasRootController()) router.setRoot(RouterTransaction.with(new LoginController()));
+        if (router.hasRootController()) return;
+//        boolean isAuthCodeExist = preferences.getString(Constants.KEY_AUTH_CODE).isSet();
+//        router.setRoot(RouterTransaction.with(isAuthCodeExist ? new HomeController() : new LoginController()));
+        router.setRoot(RouterTransaction.with(new LoginController()));
     }
 
     @Override
