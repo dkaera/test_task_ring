@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.f2prateek.rx.preferences2.Preference;
-import com.f2prateek.rx.preferences2.RxSharedPreferences;
+import com.f2prateek.rx.preferences.Preference;
+import com.f2prateek.rx.preferences.RxSharedPreferences;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -89,7 +89,7 @@ public class RxPreferences {
         return rxSharedPreferences.getObject(key, new ArrayList<T>(), new ListAdapter(gson, clazz));
     }
 
-    private class ListAdapter<T> implements Preference.Converter<List<T>> {
+    private class ListAdapter<T> implements Preference.Adapter<List<T>> {
 
         private Class<T> clazz;
         private Gson gson;
@@ -99,10 +99,9 @@ public class RxPreferences {
             this.gson = gson;
         }
 
-        @NonNull
         @Override
-        public List<T> deserialize(@NonNull String serialized) {
-            String[] list = TextUtils.split(serialized, "‚‚");
+        public List<T> get(@NonNull String key, @NonNull android.content.SharedPreferences preferences) {
+            String[] list = TextUtils.split(preferences.getString(key, ""), "‚‚");
             List<T> result = new ArrayList<>(list.length);
             for (String item : list) {
                 result.add(gson.fromJson(item, clazz));
@@ -110,19 +109,18 @@ public class RxPreferences {
             return result;
         }
 
-        @NonNull
         @Override
-        public String serialize(@NonNull List<T> value) {
+        public void set(@NonNull String key, @NonNull List<T> value, @NonNull SharedPreferences.Editor editor) {
             ArrayList<String> objStrings = new ArrayList<>();
             for (T obj : value) {
                 objStrings.add(gson.toJson(obj));
             }
             String[] myStringList = objStrings.toArray(new String[objStrings.size()]);
-            return TextUtils.join("‚‚", myStringList);
+            editor.putString(key, TextUtils.join("‚‚", myStringList)).apply();
         }
     }
 
-    private class GsonPreferenceAdapter<T> implements Preference.Converter<T> {
+    private class GsonPreferenceAdapter<T> implements Preference.Adapter<T> {
 
         private Gson gson;
         private Type clazz;
@@ -132,16 +130,14 @@ public class RxPreferences {
             this.clazz = clazz;
         }
 
-        @NonNull
         @Override
-        public T deserialize(@NonNull String serialized) {
-            return gson.fromJson(serialized, clazz);
+        public T get(String key, SharedPreferences preferences) {
+            return gson.fromJson(preferences.getString(key, ""), clazz);
         }
 
-        @NonNull
         @Override
-        public String serialize(@NonNull T value) {
-            return gson.toJson(value);
+        public void set(String key, T value, SharedPreferences.Editor editor) {
+            editor.putString(key, gson.toJson(value));
         }
     }
 }

@@ -1,10 +1,8 @@
 package com.testproject.kaera.ringtestapp.di.components;
 
-import com.testproject.kaera.ringtestapp.controllers.AuthDialogController;
 import com.testproject.kaera.ringtestapp.controllers.HomeController;
-import com.testproject.kaera.ringtestapp.controllers.LoginController;
+import com.testproject.kaera.ringtestapp.controllers.TopListController;
 import com.testproject.kaera.ringtestapp.di.modules.AppModule;
-import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
 import com.testproject.kaera.ringtestapp.ui.MainActivity;
 
 import javax.inject.Singleton;
@@ -19,9 +17,5 @@ public interface AppComponent extends PipeComponent {
 
     void inject(HomeController object);
 
-    void inject(AuthenticateCommand authenticateCommand);
-
-    void inject(LoginController loginController);
-
-    void inject(AuthDialogController authDialogController);
+    void inject(TopListController topListController);
 }

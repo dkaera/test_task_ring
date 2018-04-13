@@ -10,10 +10,8 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.RingApplication;
-import com.testproject.kaera.ringtestapp.controllers.HomeController;
-import com.testproject.kaera.ringtestapp.controllers.LoginController;
+import com.testproject.kaera.ringtestapp.controllers.TopListController;
 import com.testproject.kaera.ringtestapp.service.util.RxPreferences;
-import com.testproject.kaera.ringtestapp.util.Constants;
 
 import javax.inject.Inject;
 
@@ -44,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (router.hasRootController()) return;
 //        boolean isAuthCodeExist = preferences.getString(Constants.KEY_AUTH_CODE).isSet();
-//        router.setRoot(RouterTransaction.with(isAuthCodeExist ? new HomeController() : new LoginController()));
-        router.setRoot(RouterTransaction.with(new LoginController()));
+//        router.setRoot(RouterTransaction.with(isAuthCodeExist ? new HomeController() : new TopListController()));
+        router.setRoot(RouterTransaction.with(new TopListController()));
     }
 
     @Override

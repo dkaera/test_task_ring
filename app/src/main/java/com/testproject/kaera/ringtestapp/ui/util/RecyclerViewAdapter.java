@@ -1,33 +1,28 @@
 package com.testproject.kaera.ringtestapp.ui.util;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
-import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding.view.RxView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.trello.rxlifecycle2.android.RxLifecycleAndroid.bindView;
-import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+import static com.trello.rxlifecycle.android.RxLifecycleAndroid.bindView;
+import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
 /**
  * Created by Dmitriy Puzak on 7/1/16.
  */
 public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    protected final List<T> items;
+    protected List<T> items;
 
     private RecyclerViewAdapter.OnLongItemClickListener longClickListener;
     private RecyclerViewAdapter.OnItemClickListener clickListener;
 
-    public RecyclerViewAdapter(@NonNull List<T> items) {
-        this.items = items;
-    }
-
-    public RecyclerViewAdapter(@NonNull T... items) {
-        this.items = Arrays.asList(items);
+    public RecyclerViewAdapter(@Nullable List<T> items) {
+        this.items = items == null ? new ArrayList<>() : items;
     }
 
     public boolean isEmpty() {
@@ -67,6 +62,11 @@ public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void putData(List<T> items) {
+        this.items.addAll(items);
+        notifyDataSetChanged();
     }
 
     public interface OnItemClickListener<T, VH extends RecyclerView.ViewHolder> {

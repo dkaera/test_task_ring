@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    tools:background="@color/brown_300">
+
+    <ImageView
+        android:id="@+id/thumbnail_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/circle"
+        tools:background="@color/blue_300" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail_image"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="TIL that a plane carrying 6,000 pounds of pot crashed in Yosemite National Park. Climbers in Yosemite Valley heard news of the crash and sparked a miniature gold rush with up to 20 people searching the frozen crash site. Much of the weed was salvaged, smoked, or sold before park rangers caught on." />
+
+    <TextView
+        android:id="@+id/submitted_by"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_toRightOf="@+id/thumbnail_image"
+        tools:text="Submitted by author" />
+
+    <TextView
+        android:id="@+id/comment_count"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submitted_by"
+        android:layout_toRightOf="@+id/thumbnail_image"
+        tools:text="Comments 367" />
+
+    <TextView
+        android:id="@+id/time"
+        style="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/submitted_by"
+        tools:text="17 hours ago" />
+</RelativeLayout>

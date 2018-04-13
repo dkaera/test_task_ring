@@ -15,6 +15,8 @@ import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.controllers.HomeController.HomeScreen;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewAdapter;
 
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +26,7 @@ public class HomeAdapter extends RecyclerViewAdapter<HomeScreen, HomeAdapter.Vie
     private final Context context;
 
     public HomeAdapter(Context context, HomeScreen[] items) {
-        super(items);
+        super(Arrays.asList(items));
         this.inflater = LayoutInflater.from(context);
         this.context = context;
     }

@@ -2,8 +2,13 @@ package com.testproject.kaera.ringtestapp.di.modules;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
+import com.testproject.kaera.ringtestapp.service.adapter.APIRedditItemAdapter;
 import com.testproject.kaera.ringtestapp.util.curl.CurlInterceptor;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -21,7 +26,10 @@ public class ApiModule {
     @Provides
     @Singleton
     Gson provideGson() {
-        return new GsonBuilder().serializeNulls().disableHtmlEscaping().create();
+        Type apiRedditItemType = new TypeToken<List<APIRedditItem>>() {}.getType();
+        return new GsonBuilder().serializeNulls()
+                .registerTypeAdapter(apiRedditItemType, new APIRedditItemAdapter())
+                .disableHtmlEscaping().create();
     }
 
     @Provides

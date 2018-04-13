@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.testproject.kaera.ringtestapp.RingApplication;
+import com.testproject.kaera.ringtestapp.service.cache.StaticCache;
 import com.testproject.kaera.ringtestapp.service.util.RxPreferences;
 
 import javax.inject.Singleton;
@@ -40,5 +41,11 @@ public class AppModule {
     @Singleton
     RxPreferences providePreferences(Context context, Gson gson) {
         return new RxPreferences(context.getSharedPreferences(RING_PREFERENCES, MODE_PRIVATE), gson);
+    }
+
+    @Provides
+    @Singleton
+    StaticCache provideStaticCache() {
+        return new StaticCache();
     }
 }

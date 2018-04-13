@@ -6,17 +6,14 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 
 import com.bluelinelabs.conductor.Controller;
+import com.testproject.kaera.ringtestapp.service.util.FinallyActionStateSubscriber;
 import com.testproject.kaera.ringtestapp.ui.ActionBarProvider;
+import com.trello.rxlifecycle.android.RxLifecycleAndroid;
 
-import java.util.concurrent.Callable;
+import io.techery.janet.ReadActionPipe;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-
-import static com.trello.rxlifecycle2.android.RxLifecycleAndroid.bindView;
 
 public abstract class BaseController extends RefWatchingController {
 
@@ -59,5 +56,18 @@ public abstract class BaseController extends RefWatchingController {
 
     protected String getTitle() {
         return null;
+    }
+
+    public <T> Observable<T> bind(Observable<T> source) {
+        return source
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleAndroid.bindView(getView()));
+    }
+
+    public <A> FinallyActionStateSubscriber<A> bindPipe(ReadActionPipe<A> pipe) {
+        FinallyActionStateSubscriber<A> subscriber = new FinallyActionStateSubscriber<>();
+        bind(pipe.observe())
+                .subscribe(subscriber);
+        return subscriber;
     }
 }

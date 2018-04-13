@@ -1,6 +1,6 @@
 package com.testproject.kaera.ringtestapp.di.modules;
 
-import com.testproject.kaera.ringtestapp.service.command.AuthenticateCommand;
+import com.testproject.kaera.ringtestapp.service.command.GetTopSubredditCommand;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers;
 public class PipeModule {
 
     @Provides
-    ActionPipe<AuthenticateCommand> provideAuthenticateCommand(Janet janet) {
-        return janet.createPipe(AuthenticateCommand.class, Schedulers.io());
+    ActionPipe<GetTopSubredditCommand> provideAuthenticateCommand(Janet janet) {
+        return janet.createPipe(GetTopSubredditCommand.class, Schedulers.io());
     }
 }
