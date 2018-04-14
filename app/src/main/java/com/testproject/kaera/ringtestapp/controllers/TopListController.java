@@ -2,6 +2,7 @@ package com.testproject.kaera.ringtestapp.controllers;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -32,7 +33,9 @@ public class TopListController extends BaseController {
     private RecyclerViewWrapper recyclerViewWrapper;
 
     @Inject ActionPipe<GetTopSubredditCommand> getTopSubredditCommand;
+
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
     public TopListController() {
         super();
@@ -45,7 +48,7 @@ public class TopListController extends BaseController {
     @Override protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         bindPipe(getTopSubredditCommand)
-                .afterEach(new HorizontalProgressSwitcher<>(this))
+                .afterEach(new HorizontalProgressSwitcher<>(refreshLayout))
                 .onSuccess(this::putData);
         loadData();
     }
@@ -62,6 +65,8 @@ public class TopListController extends BaseController {
             String name = adapter.getItem(itemCount - 1).getName();
             loadNext(name, itemCount);
         }));
+        refreshLayout.setColorSchemeResources(R.color.colorAccent);
+        refreshLayout.setOnRefreshListener(this::loadData);
     }
 
     private void onThumbnailClick(APIRedditItem model) {

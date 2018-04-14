@@ -21,7 +21,6 @@ import static butterknife.ButterKnife.*;
 public class MainActivity extends AppCompatActivity implements ActionBarProvider {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.horizontal_progress) ProgressBar progressBar;
     @BindView(R.id.controller_container) ViewGroup container;
 
     private Router router;
@@ -43,13 +42,5 @@ public class MainActivity extends AppCompatActivity implements ActionBarProvider
 
     @Override public void onBackPressed() {
         if (!router.handleBack()) super.onBackPressed();
-    }
-
-    @Override public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
     }
 }

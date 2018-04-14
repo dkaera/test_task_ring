@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,7 @@ public class GalleryController extends BaseController {
     @Inject ActionPipe<SaveImageCommand> saveImageCommand;
 
     @BindView(R.id.thumbnail_image) ImageView imgThumb;
+    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
     public GalleryController(String thumbUrl) {
         this(new BundleBuilder()
@@ -75,6 +77,8 @@ public class GalleryController extends BaseController {
         super.onViewBound(view);
         RingApplication.getComponent().inject(this);
         loadImage();
+        refreshLayout.setColorSchemeResources(R.color.colorAccent);
+        refreshLayout.setOnRefreshListener(this::loadImage);
     }
 
     private void loadImage() {
@@ -82,13 +86,20 @@ public class GalleryController extends BaseController {
                 .load(getArgs().getCharSequence(KEY_URL).toString())
                 .into(new SimpleTargetCallback() {
                     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        refreshLayout.setRefreshing(false);
                         loadedBitmap = bitmap;
                         imgThumb.setImageBitmap(bitmap);
                     }
 
                     @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                         super.onBitmapFailed(e, errorDrawable);
+                        refreshLayout.setRefreshing(false);
                         showToast(R.string.error_message_load_image);
+                    }
+
+                    @Override public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        super.onPrepareLoad(placeHolderDrawable);
+                        refreshLayout.setRefreshing(true);
                     }
                 });
     }

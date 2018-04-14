@@ -1,5 +1,7 @@
 package com.testproject.kaera.ringtestapp.ui.util;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 
 import io.techery.janet.ActionState;
@@ -10,18 +12,18 @@ import static io.techery.janet.ActionState.Status.START;
 import static io.techery.janet.ActionState.Status.SUCCESS;
 
 public class HorizontalProgressSwitcher<A> implements Action1<ActionState<A>> {
-    private final BaseController controller;
+    private final SwipeRefreshLayout refreshLayout;
 
-    public HorizontalProgressSwitcher(BaseController controller) {
-        this.controller = controller;
+    public HorizontalProgressSwitcher(SwipeRefreshLayout refreshLayout) {
+        this.refreshLayout = refreshLayout;
     }
 
     @Override public void call(ActionState<A> state) {
         if (state.status == FAIL || state.status == SUCCESS) {
-            controller.hideProgressBar();
+            refreshLayout.setRefreshing(false);
         }
         if (state.status == START){
-            controller.showProgressBar();
+            refreshLayout.setRefreshing(true);
         }
     }
 }
