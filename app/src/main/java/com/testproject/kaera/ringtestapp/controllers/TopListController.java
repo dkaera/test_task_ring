@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class TopListController extends BaseController {
         super.onViewBound(view);
         RingApplication.getComponent().inject(this);
         recyclerViewWrapper = new RecyclerViewWrapper(recyclerView);
-        adapter = new TopListAdapter(view.getContext());
+        adapter = new TopListAdapter();
         adapter.setThumbnailClickListener(this::onThumbnailClick);
         recyclerViewWrapper.setAdapter(adapter);
         recyclerViewWrapper.setEndlessCallback(new EndlessCallback(THRESHOLD, integer -> {
@@ -95,5 +96,10 @@ public class TopListController extends BaseController {
     protected void onRestoreViewState(@NonNull View view, @NonNull Bundle savedViewState) {
         super.onRestoreViewState(view, savedViewState);
         recyclerViewWrapper.restoreViewState(savedViewState);
+    }
+
+    @Override protected void onDestroyView(@NonNull View view) {
+        super.onDestroyView(view);
+        recyclerViewWrapper.onDestroyView();
     }
 }

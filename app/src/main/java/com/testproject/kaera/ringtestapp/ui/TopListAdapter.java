@@ -1,8 +1,6 @@
 package com.testproject.kaera.ringtestapp.ui;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,19 +26,17 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
     private static final String commentsPrefix = "%d comments";
     private static final String authorPrefix = "submitted by %s";
 
-    private final LayoutInflater inflater;
-
     private OnThumbnailClick thumbnailClickListener = item -> {
         // empty
     };
 
-    public TopListAdapter(Context context) {
+    public TopListAdapter() {
         super(null);
-        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         return new ViewHolder(inflater.inflate(R.layout.row_top_item, parent, false));
     }
 
