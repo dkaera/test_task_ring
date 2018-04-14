@@ -57,7 +57,7 @@ public class TopListController extends BaseController {
         super.onViewBound(view);
         RingApplication.getComponent().inject(this);
         recyclerViewWrapper = new RecyclerViewWrapper(recyclerView);
-        adapter = new TopListAdapter(view.getContext());
+        adapter = new TopListAdapter();
         adapter.setThumbnailClickListener(this::onThumbnailClick);
         recyclerViewWrapper.setAdapter(adapter);
         recyclerViewWrapper.setEndlessCallback(new EndlessCallback(THRESHOLD, integer -> {
