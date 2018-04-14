@@ -5,9 +5,13 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.bluelinelabs.conductor.Controller;
+import com.testproject.kaera.ringtestapp.R;
 
+import butterknife.BindView;
+import butterknife.Optional;
 import butterknife.Unbinder;
 
 import static butterknife.ButterKnife.bind;

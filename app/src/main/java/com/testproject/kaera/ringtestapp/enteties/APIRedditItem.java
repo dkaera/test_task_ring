@@ -8,28 +8,23 @@ import java.util.Objects;
 
 public class APIRedditItem {
 
-//    @SerializedName("preview")
-//    @Expose
-//    private Preview preview;
-
     @SerializedName("num_comments")
-    @Expose
-    private int commentsCount;
+    @Expose private int commentsCount;
+
     @SerializedName("created_utc")
-    @Expose
-    private long created;
+    @Expose private long created;
+
     @SerializedName("name")
-    @Expose
-    private String name;
+    @Expose private String name;
+
     @SerializedName("thumbnail")
-    @Expose
-    private String thumbnail;
+    @Expose private String thumbnail;
+
     @SerializedName("author")
-    @Expose
-    private String author;
+    @Expose private String author;
+
     @SerializedName("title")
-    @Expose
-    private String title;
+    @Expose private String title;
 
     private Date createdDate;
     private String thumbFullSize;
@@ -43,7 +38,7 @@ public class APIRedditItem {
     }
 
     /**
-     * @return crated time Unixtime UTC format
+     * @return crated time in Unixtime UTC format
      */
     public long getCreated() {
         return created;

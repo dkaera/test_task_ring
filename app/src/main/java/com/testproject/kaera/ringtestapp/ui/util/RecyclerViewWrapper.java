@@ -1,8 +1,13 @@
 package com.testproject.kaera.ringtestapp.ui.util;
 
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
+
+import java.util.UUID;
 
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -13,8 +18,11 @@ import static android.support.v7.widget.RecyclerView.OnScrollListener;
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.jakewharton.rxbinding.view.RxView.layoutChanges;
 
 public class RecyclerViewWrapper {
+
+    private static final String RECYCLER_VIEW_STATE = "recycler_view_state";
 
     private final LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
@@ -54,6 +62,22 @@ public class RecyclerViewWrapper {
     public LinearLayoutManager getLayoutManager() {
         return layoutManager;
     }
+
+    public void saveViewState(Bundle container) {
+        container.putParcelable(RECYCLER_VIEW_STATE, layoutManager.onSaveInstanceState());
+    }
+
+    public void restoreViewState(Bundle container) {
+        if (container != null && container.containsKey(RECYCLER_VIEW_STATE)) {
+            layoutChanges(recyclerView)
+                    .take(2)
+                    .subscribe(i -> {
+                        layoutManager.onRestoreInstanceState(container.getParcelable(RECYCLER_VIEW_STATE));
+                        recyclerView.setLayoutManager(layoutManager);
+                    });
+        }
+    }
+
 
     public static class EndlessCallback implements Func1<Integer, Boolean> {
 

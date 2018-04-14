@@ -11,9 +11,6 @@ import java.util.List;
 import static com.trello.rxlifecycle.android.RxLifecycleAndroid.bindView;
 import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
-/**
- * Created by Dmitriy Puzak on 7/1/16.
- */
 public abstract class RecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     protected List<T> items;

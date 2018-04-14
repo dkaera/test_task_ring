@@ -1,7 +1,5 @@
 package com.testproject.kaera.ringtestapp.service.adapter;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -26,19 +24,25 @@ public class APIRedditItemAdapter implements JsonDeserializer<List<APIRedditItem
         this.gson = new GsonBuilder().serializeNulls().create();
     }
 
-    @Override
-    public List<APIRedditItem> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        JsonArray asJsonArray = json.getAsJsonObject().getAsJsonObject("data").getAsJsonArray("children");
+    @Override public List<APIRedditItem> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonArray itemsArray = getDataObject(json).getAsJsonArray("children");
         List<APIRedditItem> redditItems = new ArrayList<>();
-        for (JsonElement jsonElement : asJsonArray) {
-            JsonObject asJsonObject = jsonElement.getAsJsonObject().getAsJsonObject("data");
-            String thumbFullSize = asJsonObject.has("preview") ? getFullSizeThumb(asJsonObject) : "";
-            APIRedditItem parsedItem = gson.fromJson(asJsonObject, APIRedditItem.class);
-            parsedItem.setThumbFullSize(thumbFullSize);
+
+        for (JsonElement jsonElement : itemsArray) {
+            JsonObject dataObject = getDataObject(jsonElement);
+            String thumbFullSizeUrl = dataObject.has("preview") ? getFullSizeThumb(dataObject) : "";
+
+            APIRedditItem parsedItem = gson.fromJson(dataObject, APIRedditItem.class);
+            parsedItem.setThumbFullSize(thumbFullSizeUrl);
             parsedItem.setCreatedDate(new Date(TimeUnit.SECONDS.toMillis(parsedItem.getCreated())));
+
             redditItems.add(parsedItem);
         }
         return redditItems;
+    }
+
+    private JsonObject getDataObject(JsonElement jsonElement) {
+        return jsonElement.getAsJsonObject().getAsJsonObject("data");
     }
 
     private String getFullSizeThumb(JsonObject asJsonObject) {

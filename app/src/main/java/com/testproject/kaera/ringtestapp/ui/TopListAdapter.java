@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewAdapter;
-import com.testproject.kaera.ringtestapp.ui.util.TopItemsDiffUtilCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -47,7 +46,7 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(position, getItem(position));
+        holder.bind(getItem(position));
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,7 +64,7 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(int position, APIRedditItem item) {
+        void bind(APIRedditItem item) {
             this.item = item;
             this.tvTitle.setText(item.getTitle());
             this.tvCommentCount.setText(String.format(commentsPrefix, item.getCommentsCount()));
@@ -82,14 +81,6 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
 
     public void setThumbnailClickListener(OnThumbnailClick thumbnailClickListener) {
         this.thumbnailClickListener = thumbnailClickListener;
-    }
-
-    public void swap(List<APIRedditItem> items) {
-        TopItemsDiffUtilCallback diffCallback = new TopItemsDiffUtilCallback(this.items, items);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-        this.items.clear();
-        this.items.addAll(items);
-        diffResult.dispatchUpdatesTo(this);
     }
 
     public void setData(List<APIRedditItem> items) {

@@ -13,6 +13,7 @@ public class GetTopSubredditAction extends BaseAction {
 
     @Query("count") int count;
     @Query("after") String after;
+//    @Query("limit") String limit; // TODO: This value is declared in documentation but has no effect. Future improvement
 
     @Response List<APIRedditItem> result;
 

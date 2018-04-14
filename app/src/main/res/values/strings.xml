@@ -1,19 +1,9 @@
 <resources>
     <string name="app_name">RingTestApp</string>
-    <string name="about">About</string>
+    <string name="save">Save</string>
 
-    <!-- Transitions -->
-    <string name="fab_dialog_transition_name">transition.fab</string>
-    <string name="transition_tag_dot">transition.dot</string>
-    <string name="transition_tag_title">transition.title</string>
-    <string name="transition_tag_dot_indexed">transition.dot%1$d</string>
-    <string name="transition_tag_title_indexed">transition.title%1$d</string>
-    <string name="transition_tag_image_named">transition.image%1$s</string>
-    <string name="transition_tag_title_named">transition.title%1$s</string>
-
-    <!-- Navigation Demo -->
-    <string name="pop_to_root">Pop to Root</string>
-    <string name="go_up">Go Up</string>
-    <string name="next_controller">Next Controller</string>
-    <string name="navigation_title">Controller #%1$d</string>
+    <!--Notification messages-->
+    <string name="error_message_load_image">Sorry, image loading error</string>
+    <string name="error_message_save_image">Sorry, image saving error</string>
+    <string name="success_message_save_image">Congrats, image was saved successfully</string>
 </resources>

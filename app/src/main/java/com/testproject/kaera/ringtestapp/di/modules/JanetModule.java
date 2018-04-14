@@ -16,8 +16,7 @@ import io.techery.janet.http.HttpClient;
 public class JanetModule {
 
     @Provides
-    @Singleton
-    Janet provideJanet(HttpClient client, Gson gson) {
+    @Singleton Janet provideJanet(HttpClient client, Gson gson) {
         return new Janet.Builder()
                 .addService(new HttpActionService("https://www.reddit.com/", client, new GsonConverter(gson)))
                 .addService(new CommandActionService())

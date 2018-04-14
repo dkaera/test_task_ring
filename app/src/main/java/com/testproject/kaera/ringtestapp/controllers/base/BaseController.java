@@ -70,4 +70,13 @@ public abstract class BaseController extends RefWatchingController {
                 .subscribe(subscriber);
         return subscriber;
     }
+
+    public void showProgressBar() {
+        ActionBarProvider actionBarProvider = ((ActionBarProvider) getActivity());
+        if (actionBarProvider != null) actionBarProvider.showProgress();
+    }
+    public void hideProgressBar() {
+        ActionBarProvider actionBarProvider = ((ActionBarProvider) getActivity());
+        if (actionBarProvider != null) actionBarProvider.hideProgress();
+    }
 }

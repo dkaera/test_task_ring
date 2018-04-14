@@ -24,17 +24,16 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class ApiModule {
 
     @Provides
-    @Singleton
-    Gson provideGson() {
-        Type apiRedditItemType = new TypeToken<List<APIRedditItem>>() {}.getType();
+    @Singleton Gson provideGson() {
+        Type apiRedditItemType = new TypeToken<List<APIRedditItem>>() {
+        }.getType();
         return new GsonBuilder().serializeNulls()
                 .registerTypeAdapter(apiRedditItemType, new APIRedditItemAdapter())
                 .disableHtmlEscaping().create();
     }
 
     @Provides
-    @Singleton
-    OkHttpClient provideOkHttp() {
+    @Singleton OkHttpClient provideOkHttp() {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -47,8 +46,7 @@ public class ApiModule {
     }
 
     @Provides
-    @Singleton
-    HttpClient provideHttpClient(OkHttpClient okHttpClient) {
+    @Singleton HttpClient provideHttpClient(OkHttpClient okHttpClient) {
         return new OkClient(okHttpClient);
     }
 }
