@@ -25,6 +25,7 @@ import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.DialogController.DialogCallback.Result;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.service.command.SaveImageCommand;
+import com.testproject.kaera.ringtestapp.ui.util.SwipeLayoutProgressSwitcher;
 import com.testproject.kaera.ringtestapp.util.BundleBuilder;
 import com.testproject.kaera.ringtestapp.util.SimpleTargetCallback;
 
@@ -63,6 +64,7 @@ public class GalleryController extends BaseController {
         super.onAttach(view);
         requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 0);
         bindPipe(saveImageCommand)
+                .afterEach(new SwipeLayoutProgressSwitcher<>(refreshLayout))
                 .onSuccess(command -> showToast(R.string.success_message_save_image))
                 .onFail((command, throwable) -> showToast(R.string.error_message_save_image));
     }

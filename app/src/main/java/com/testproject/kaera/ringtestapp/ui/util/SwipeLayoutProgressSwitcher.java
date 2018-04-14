@@ -11,10 +11,10 @@ import static io.techery.janet.ActionState.Status.FAIL;
 import static io.techery.janet.ActionState.Status.START;
 import static io.techery.janet.ActionState.Status.SUCCESS;
 
-public class HorizontalProgressSwitcher<A> implements Action1<ActionState<A>> {
+public class SwipeLayoutProgressSwitcher<A> implements Action1<ActionState<A>> {
     private final SwipeRefreshLayout refreshLayout;
 
-    public HorizontalProgressSwitcher(SwipeRefreshLayout refreshLayout) {
+    public SwipeLayoutProgressSwitcher(SwipeRefreshLayout refreshLayout) {
         this.refreshLayout = refreshLayout;
     }
 

@@ -16,7 +16,7 @@ import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.service.command.GetTopSubredditCommand;
 import com.testproject.kaera.ringtestapp.ui.TopListAdapter;
-import com.testproject.kaera.ringtestapp.ui.util.HorizontalProgressSwitcher;
+import com.testproject.kaera.ringtestapp.ui.util.SwipeLayoutProgressSwitcher;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewWrapper;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewWrapper.EndlessCallback;
 
@@ -48,7 +48,7 @@ public class TopListController extends BaseController {
     @Override protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         bindPipe(getTopSubredditCommand)
-                .afterEach(new HorizontalProgressSwitcher<>(refreshLayout))
+                .afterEach(new SwipeLayoutProgressSwitcher<>(refreshLayout))
                 .onSuccess(this::putData);
         loadData();
     }
