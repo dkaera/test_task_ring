@@ -12,4 +12,4 @@ Master branch includes release version of test app.
 Future improvements
 1. Implemet Unit tests.
 2. Migrate to RxJava2.
-3. Implement Room Percistance cache
+3. Implement Room Persistence cache
