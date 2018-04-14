@@ -6,11 +6,19 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 
 import com.bluelinelabs.conductor.Controller;
+import com.testproject.kaera.ringtestapp.service.util.FinallyActionStateSubscriber;
 import com.testproject.kaera.ringtestapp.ui.ActionBarProvider;
+import com.trello.rxlifecycle.android.RxLifecycleAndroid;
+
+import io.techery.janet.ReadActionPipe;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+
 
 public abstract class BaseController extends RefWatchingController {
 
     public BaseController() {
+        super();
     }
 
     public BaseController(Bundle args) {
@@ -20,7 +28,7 @@ public abstract class BaseController extends RefWatchingController {
     // Note: This is just a quick demo of how an ActionBar *can* be accessed, not necessarily how it *should*
     // be accessed. In a production app, this would use Dagger instead.
     protected ActionBar getActionBar() {
-        ActionBarProvider actionBarProvider = ((ActionBarProvider)getActivity());
+        ActionBarProvider actionBarProvider = ((ActionBarProvider) getActivity());
         return actionBarProvider != null ? actionBarProvider.getSupportActionBar() : null;
     }
 
@@ -33,7 +41,7 @@ public abstract class BaseController extends RefWatchingController {
     protected void setTitle() {
         Controller parentController = getParentController();
         while (parentController != null) {
-            if (parentController instanceof BaseController && ((BaseController)parentController).getTitle() != null) {
+            if (parentController instanceof BaseController && ((BaseController) parentController).getTitle() != null) {
                 return;
             }
             parentController = parentController.getParentController();
@@ -48,5 +56,18 @@ public abstract class BaseController extends RefWatchingController {
 
     protected String getTitle() {
         return null;
+    }
+
+    public <T> Observable<T> bind(Observable<T> source) {
+        return source
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleAndroid.bindView(getView()));
+    }
+
+    public <A> FinallyActionStateSubscriber<A> bindPipe(ReadActionPipe<A> pipe) {
+        FinallyActionStateSubscriber<A> subscriber = new FinallyActionStateSubscriber<>();
+        bind(pipe.observe())
+                .subscribe(subscriber);
+        return subscriber;
     }
 }

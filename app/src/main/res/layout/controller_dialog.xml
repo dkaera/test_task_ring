@@ -21,7 +21,6 @@
         android:orientation="vertical"
         android:elevation="@dimen/dialog_elevation"
         android:minWidth="280dp"
-        android:transitionName="@string/fab_dialog_transition_name"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/dialog_bg"
@@ -47,7 +46,7 @@
             />
 
         <Button
-            android:id="@+id/dismiss"
+            android:id="@+id/ok"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="36dp"

@@ -3,18 +3,22 @@ package com.testproject.kaera.ringtestapp.controllers;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.util.BundleBuilder;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.testproject.kaera.ringtestapp.controllers.DialogController.DialogCallback.Result.*;
 
 public class DialogController extends BaseController {
 
@@ -25,6 +29,10 @@ public class DialogController extends BaseController {
     TextView tvTitle;
     @BindView(R.id.tv_description)
     TextView tvDescription;
+
+    private DialogCallback callback = result -> {
+        // empty
+    };
 
     public DialogController(CharSequence title, CharSequence description) {
         this(new BundleBuilder(new Bundle())
@@ -50,13 +58,38 @@ public class DialogController extends BaseController {
         tvDescription.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    @OnClick({R.id.dismiss, R.id.dialog_window})
-    public void dismissDialog() {
+    @OnClick(R.id.ok)
+    public void dismissSuccess() {
+        onResult(OK);
+    }
+
+    @OnClick(R.id.dialog_window)
+    public void dismissCancel() {
+        onResult(CANCEL);
+    }
+
+    private void onResult(DialogCallback.Result result) {
+        callback.onResult(result);
+        callback = null;
         getRouter().popController(this);
     }
 
     @Override
     public boolean handleBack() {
         return super.handleBack();
+    }
+
+    public DialogController setDialogCallback(DialogCallback callback) {
+        this.callback = callback;
+        return this;
+    }
+
+    public interface DialogCallback {
+
+        enum Result {
+            OK, CANCEL
+        }
+
+        void onResult(Result result);
     }
 }

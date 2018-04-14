@@ -15,6 +15,10 @@ public class BundleBuilder {
         this.bundle = bundle;
     }
 
+    public BundleBuilder() {
+        this.bundle = new Bundle();
+    }
+
     public BundleBuilder putAll(Bundle bundle) {
         this.bundle.putAll(bundle);
         return this;
