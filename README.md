@@ -1,3 +1,5 @@
+This is sample project just for test new features of Android libraries and show code style.
+
 Master branch includes release version of test app.
 
 1. Architecture of app based on VIPER architecture pattern, in Android community it famous as Clean Architecture. 
