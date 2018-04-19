@@ -1,6 +1,5 @@
 package com.testproject.kaera.ringtestapp.service.command;
 
-import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.service.api.GetTopSubredditAction;
 import com.testproject.kaera.ringtestapp.service.cache.StaticCache;

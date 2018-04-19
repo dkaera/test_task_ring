@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
 import com.bluelinelabs.conductor.ControllerChangeType;
-import com.testproject.kaera.ringtestapp.RingApplication;
 
 public abstract class RefWatchingController extends ButterKnifeController {
 

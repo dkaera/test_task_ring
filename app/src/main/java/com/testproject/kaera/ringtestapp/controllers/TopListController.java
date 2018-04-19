@@ -5,14 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.testproject.kaera.ringtestapp.R;
-import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.service.command.GetTopSubredditCommand;

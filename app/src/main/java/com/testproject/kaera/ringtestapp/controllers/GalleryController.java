@@ -21,7 +21,6 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.squareup.picasso.Picasso;
 import com.testproject.kaera.ringtestapp.R;
-import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.DialogController.DialogCallback.Result;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
 import com.testproject.kaera.ringtestapp.service.command.SaveImageCommand;

@@ -3,15 +3,12 @@ package com.testproject.kaera.ringtestapp.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.testproject.kaera.ringtestapp.R;
-import com.testproject.kaera.ringtestapp.RingApplication;
 import com.testproject.kaera.ringtestapp.controllers.TopListController;
 
 import butterknife.BindView;

@@ -7,6 +7,7 @@ ext {
     versionName = "1.0"
     //Support lib
     supportVersion = '27.1.0'
+    // Dagger
     daggerVersion = '2.14.1'
     //Square
     picassoVersion = '2.71828'

@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.testproject.kaera.ringtestapp.RingApplication;
-
 import java.io.OutputStream;
 
 import javax.inject.Inject;
