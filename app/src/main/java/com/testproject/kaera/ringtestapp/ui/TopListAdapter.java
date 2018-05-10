@@ -5,20 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.enteties.APIRedditItem;
 import com.testproject.kaera.ringtestapp.ui.util.RecyclerViewAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAdapter.ViewHolder> {
 
@@ -47,29 +40,29 @@ public class TopListAdapter extends RecyclerViewAdapter<APIRedditItem, TopListAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_title) TextView tvTitle;
-        @BindView(R.id.comment_count) TextView tvCommentCount;
-        @BindView(R.id.submitted_by) TextView tvSubmitted;
-        @BindView(R.id.time) TextView tvTime;
-        @BindView(R.id.thumbnail_image) ImageView imgThumb;
+//        @BindView(R.id.tv_title) TextView tvTitle;
+//        @BindView(R.id.comment_count) TextView tvCommentCount;
+//        @BindView(R.id.submitted_by) TextView tvSubmitted;
+//        @BindView(R.id.time) TextView tvTime;
+//        @BindView(R.id.thumbnail_image) ImageView imgThumb;
 
         private APIRedditItem item;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+//            ButterKnife.bind(this, itemView);
         }
 
         void bind(APIRedditItem item) {
             this.item = item;
-            this.tvTitle.setText(item.getTitle());
-            this.tvCommentCount.setText(String.format(commentsPrefix, item.getCommentsCount()));
-            this.tvSubmitted.setText(String.format(authorPrefix, item.getAuthor()));
-            this.tvTime.setText(dateFormat.format(item.getCreatedDate()));
-            Picasso.get().load(item.getThumbnail()).fit().centerInside().into(this.imgThumb);
+//            this.tvTitle.setText(item.getTitle());
+//            this.tvCommentCount.setText(String.format(commentsPrefix, item.getCommentsCount()));
+//            this.tvSubmitted.setText(String.format(authorPrefix, item.getAuthor()));
+//            this.tvTime.setText(dateFormat.format(item.getCreatedDate()));
+//            Picasso.get().load(item.getThumbnail()).fit().centerInside().into(this.imgThumb);
         }
 
-        @OnClick(R.id.thumbnail_image)
+//        @OnClick(R.id.thumbnail_image)
         public void onThumbnailClick() {
             thumbnailClickListener.onClick(item);
         }

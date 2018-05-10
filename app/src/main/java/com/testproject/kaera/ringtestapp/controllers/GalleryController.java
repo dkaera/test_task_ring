@@ -5,14 +5,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bluelinelabs.conductor.ControllerChangeHandler;
@@ -23,18 +21,11 @@ import com.squareup.picasso.Picasso;
 import com.testproject.kaera.ringtestapp.R;
 import com.testproject.kaera.ringtestapp.controllers.DialogController.DialogCallback.Result;
 import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
-import com.testproject.kaera.ringtestapp.service.command.SaveImageCommand;
-import com.testproject.kaera.ringtestapp.ui.util.SwipeLayoutProgressSwitcher;
 import com.testproject.kaera.ringtestapp.util.BundleBuilder;
 import com.testproject.kaera.ringtestapp.util.SimpleTargetCallback;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import io.techery.janet.ActionPipe;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -43,10 +34,10 @@ public class GalleryController extends BaseController {
     private static final String KEY_URL = "key_url";
     private Bitmap loadedBitmap;
 
-    @Inject ActionPipe<SaveImageCommand> saveImageCommand;
+//    @Inject ActionPipe<SaveImageCommand> saveImageCommand;
 
-    @BindView(R.id.thumbnail_image) ImageView imgThumb;
-    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
+//    @BindView(R.id.thumbnail_image) ImageView imgThumb;
+//    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
     public GalleryController(String thumbUrl) {
         this(new BundleBuilder()
@@ -62,10 +53,10 @@ public class GalleryController extends BaseController {
     @Override protected void onAttach(@NonNull View view) {
         super.onAttach(view);
         requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE}, 0);
-        bindPipe(saveImageCommand)
-                .afterEach(new SwipeLayoutProgressSwitcher<>(refreshLayout))
-                .onSuccess(command -> showToast(R.string.success_message_save_image))
-                .onFail((command, throwable) -> showToast(R.string.error_message_save_image));
+//        bindPipe(saveImageCommand)
+//                .afterEach(new SwipeLayoutProgressSwitcher<>(refreshLayout))
+//                .onSuccess(command -> showToast(R.string.success_message_save_image))
+//                .onFail((command, throwable) -> showToast(R.string.error_message_save_image));
     }
 
     @Override
@@ -76,10 +67,10 @@ public class GalleryController extends BaseController {
     @Override
     public void onViewBound(@NonNull View view) {
         super.onViewBound(view);
-        RingApplication.getComponent().inject(this);
+//        RingApplication.getComponent().inject(this);
         loadImage();
-        refreshLayout.setColorSchemeResources(R.color.colorAccent);
-        refreshLayout.setOnRefreshListener(this::loadImage);
+//        refreshLayout.setColorSchemeResources(R.color.colorAccent);
+//        refreshLayout.setOnRefreshListener(this::loadImage);
     }
 
     private void loadImage() {
@@ -87,20 +78,20 @@ public class GalleryController extends BaseController {
                 .load(getArgs().getCharSequence(KEY_URL).toString())
                 .into(new SimpleTargetCallback() {
                     @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        refreshLayout.setRefreshing(false);
+//                        refreshLayout.setRefreshing(false);
                         loadedBitmap = bitmap;
-                        imgThumb.setImageBitmap(bitmap);
+//                        imgThumb.setImageBitmap(bitmap);
                     }
 
                     @Override public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                         super.onBitmapFailed(e, errorDrawable);
-                        refreshLayout.setRefreshing(false);
+//                        refreshLayout.setRefreshing(false);
                         showToast(R.string.error_message_load_image);
                     }
 
                     @Override public void onPrepareLoad(Drawable placeHolderDrawable) {
                         super.onPrepareLoad(placeHolderDrawable);
-                        refreshLayout.setRefreshing(true);
+//                        refreshLayout.setRefreshing(true);
                     }
                 });
     }
@@ -141,7 +132,7 @@ public class GalleryController extends BaseController {
 
     private void onResult(Result result) {
         if (result == Result.OK) {
-            saveImageCommand.send(new SaveImageCommand(loadedBitmap, getImageName(getArgs().getCharSequence(KEY_URL).toString())));
+//            saveImageCommand.send(new SaveImageCommand(loadedBitmap, getImageName(getArgs().getCharSequence(KEY_URL).toString())));
         }
     }
 

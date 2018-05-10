@@ -38,14 +38,14 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
     // Picasso
-//    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
     // RxJava
-//    implementation "io.reactivex:rxjava:$rootProject.ext.rxJavaVersion"
+    implementation "io.reactivex:rxjava:$rootProject.ext.rxJavaVersion"
     // RxBinding
 //    implementation "com.jakewharton.rxbinding:rxbinding:$rootProject.ext.rxBindingVersion"
     // RxLifecircle
-//    implementation "com.trello:rxlifecycle:$rootProject.ext.rxLifecycleVersion"
-//    implementation "com.trello:rxlifecycle-android:$rootProject.ext.rxLifecycleVersion"
+    implementation "com.trello:rxlifecycle:$rootProject.ext.rxLifecycleVersion"
+    implementation "com.trello:rxlifecycle-android:$rootProject.ext.rxLifecycleVersion"
     // Conductor
     implementation "com.bluelinelabs:conductor:$rootProject.ext.conductorVersion"
     // Dagger
@@ -58,21 +58,21 @@ dependencies {
 //    implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
 //    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     //LeakCanary
-//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakCanaryVersion"
-//    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakCanaryVersion"
     // Janet
-//    implementation "com.github.techery:janet:$rootProject.ext.janetVersion"
-//    implementation "com.github.techery:janet-command:$rootProject.ext.janetCommandVersion"
-//    implementation "com.github.techery.janet-http:service:$rootProject.ext.janetHttpServiceVersion"
-//    implementation "com.github.techery.janet-http:client-okhttp3:$rootProject.ext.janetHttpClientVersion"
-//    implementation "com.github.techery.janet-converters:gson:$rootProject.ext.janetConvertorVersion"
-//    annotationProcessor "com.github.techery.janet-http:service-compiler:$rootProject.ext.janetHttpServiceVersion"
+    implementation "com.github.techery:janet:$rootProject.ext.janetVersion"
+    implementation "com.github.techery:janet-command:$rootProject.ext.janetCommandVersion"
+    implementation "com.github.techery.janet-http:service:$rootProject.ext.janetHttpServiceVersion"
+    implementation "com.github.techery.janet-http:client-okhttp3:$rootProject.ext.janetHttpClientVersion"
+    implementation "com.github.techery.janet-converters:gson:$rootProject.ext.janetConvertorVersion"
+    kapt "com.github.techery.janet-http:service-compiler:$rootProject.ext.janetHttpServiceVersion"
     // GSON
-//    implementation "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
+    implementation "com.google.code.gson:gson:$rootProject.ext.gsonVersion"
 
     // Ok-Http
-//    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
-//    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.ext.okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okHttpVersion"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -6,9 +6,9 @@ import io.techery.janet.ActionPipe
 
 interface PipeComponent {
 
-     fun provideAuthenticateCommand(): ActionPipe<GetTopSubredditCommand>
+     fun provideAuthenticateActionPipe(): ActionPipe<GetTopSubredditCommand>
 
-     fun provideSaveImageCommand(): ActionPipe<SaveImageCommand>
+     fun provideSaveImagePipe(): ActionPipe<SaveImageCommand>
 
      fun inject(command: GetTopSubredditCommand)
 

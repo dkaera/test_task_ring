@@ -13,11 +13,10 @@ import io.techery.janet.okhttp3.OkClient
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
-class ApiModule @Inject constructor() {
+class ApiModule {
 
     @Provides
     @Singleton

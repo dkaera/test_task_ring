@@ -19,11 +19,11 @@ ext {
     //Janet
     janetVersion = '1.0.7'
     janetCommandVersion = '1.0.5'
-    janetHttpServiceVersion = '1.0.11'
-    janetHttpClientVersion = '1.0.6'
-    janetConvertorVersion = '1.0.2'
+    janetHttpServiceVersion = '1.4.1'
+    janetHttpClientVersion = '1.4.1'
+    janetConvertorVersion = '1.1.1'
     //GSON
-    gsonVersion = '2.1.1'
+    gsonVersion = '2.8.4'
     //RX
     rxJavaVersion = '1.3.8'
     rxBindingVersion = '1.0.1'

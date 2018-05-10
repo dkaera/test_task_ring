@@ -8,11 +8,10 @@ import io.techery.janet.HttpActionService
 import io.techery.janet.Janet
 import io.techery.janet.gson.GsonConverter
 import io.techery.janet.http.HttpClient
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Module
-class JanetModule @Inject constructor() {
+class JanetModule {
 
     @Provides
     @Singleton

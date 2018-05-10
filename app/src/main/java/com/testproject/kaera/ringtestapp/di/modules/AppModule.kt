@@ -3,11 +3,10 @@ package com.testproject.kaera.ringtestapp.di.modules
 import com.testproject.kaera.ringtestapp.service.cache.StaticCache
 import dagger.Module
 import dagger.Provides
-import javax.inject.Inject
 import javax.inject.Singleton
 
-@Module
-class AppModule @Inject constructor() {
+@Module(includes = [ApiModule::class, JanetModule::class, PipeModule::class])
+class AppModule {
 
     @Singleton
     @Provides
