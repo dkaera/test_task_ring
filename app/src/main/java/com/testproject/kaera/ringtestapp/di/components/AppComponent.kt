@@ -1,5 +1,6 @@
 package com.testproject.kaera.ringtestapp.di.components
 
+import android.content.Context
 import com.testproject.kaera.ringtestapp.controllers.GalleryController
 import com.testproject.kaera.ringtestapp.controllers.TopListController
 import com.testproject.kaera.ringtestapp.di.modules.AppModule
@@ -10,6 +11,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent : PipeComponent {
+
+    fun provideContext(): Context
 
     fun inject(activity: MainActivity)
 

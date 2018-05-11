@@ -2,13 +2,12 @@ package com.testproject.kaera.ringtestapp.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.ViewGroup
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.testproject.kaera.ringtestapp.R
 import com.testproject.kaera.ringtestapp.controllers.TopListController
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), ActionBarProvider {
@@ -18,19 +17,17 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        val container = findViewById<ViewGroup>(R.id.container)
         setSupportActionBar(toolbar)
+        processRouter(savedInstanceState)
+    }
 
-        router = Conductor.attachRouter(this, container, savedInstanceState)
+    private fun processRouter(savedInstanceState: Bundle?) {
+        router = Conductor.attachRouter(this, controller_container, savedInstanceState)
         if (router!!.hasRootController()) return
-        router!!.setRoot(RouterTransaction.with(TopListController()))
+        router!!.setRoot(RouterTransaction.with(TopListController(null)))
     }
 
     override fun onBackPressed() {
         if (!router!!.handleBack()) super.onBackPressed()
     }
-
-
-
 }

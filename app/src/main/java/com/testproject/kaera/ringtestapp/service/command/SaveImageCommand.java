@@ -9,6 +9,8 @@ import android.provider.MediaStore;
 
 import java.io.OutputStream;
 
+import javax.inject.Inject;
+
 import io.techery.janet.Command;
 import io.techery.janet.command.annotations.CommandAction;
 import rx.Observable;
@@ -16,7 +18,7 @@ import rx.Observable;
 @CommandAction
 public class SaveImageCommand extends Command<Boolean> {
 
-    private Context context;
+    @Inject Context context;
 
     private Bitmap bitmap;
     private String title;
@@ -24,7 +26,6 @@ public class SaveImageCommand extends Command<Boolean> {
     public SaveImageCommand(Bitmap bitmap, String title) {
         this.bitmap = bitmap;
         this.title = title;
-//        RingApplication.getComponent().inject(this);
     }
 
     @Override protected void run(CommandCallback<Boolean> callback) throws Throwable {

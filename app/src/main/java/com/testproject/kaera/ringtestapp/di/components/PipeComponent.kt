@@ -6,7 +6,7 @@ import io.techery.janet.ActionPipe
 
 interface PipeComponent {
 
-     fun provideAuthenticateActionPipe(): ActionPipe<GetTopSubredditCommand>
+     fun provideGetTopSubredditPipe(): ActionPipe<GetTopSubredditCommand>
 
      fun provideSaveImagePipe(): ActionPipe<SaveImageCommand>
 

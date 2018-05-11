@@ -39,17 +39,13 @@ public class DialogController extends BaseController {
         super(args);
     }
 
-    @Override
-    protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.controller_dialog, container, false);
-    }
-
-    @Override
-    public void onViewBound(@NonNull View view) {
-        super.onViewBound(view);
+    @NonNull @Override
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        View view = inflater.inflate(R.layout.controller_dialog, container, false);
 //        tvTitle.setText(getArgs().getCharSequence(KEY_TITLE));
 //        tvDescription.setText(getArgs().getCharSequence(KEY_DESCRIPTION));
 //        tvDescription.setMovementMethod(LinkMovementMethod.getInstance());
+        return view;
     }
 
 //    @OnClick(R.id.ok)

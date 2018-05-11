@@ -10,10 +10,11 @@ import com.testproject.kaera.ringtestapp.di.modules.AppModule
 class RingApplication : Application() {
 
     val refWatcher: RefWatcher by lazy { LeakCanary.install(this) }
-    val component: AppComponent by lazy {
-        DaggerAppComponent
-                .builder()
-                .appModule(AppModule())
-                .build()
+
+    lateinit var component: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        component = DaggerAppComponent.builder().appModule(AppModule(this)).build()
     }
 }

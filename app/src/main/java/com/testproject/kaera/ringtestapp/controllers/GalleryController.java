@@ -59,18 +59,14 @@ public class GalleryController extends BaseController {
 //                .onFail((command, throwable) -> showToast(R.string.error_message_save_image));
     }
 
-    @Override
-    protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.controller_gallery, container, false);
-    }
-
-    @Override
-    public void onViewBound(@NonNull View view) {
-        super.onViewBound(view);
+    @NonNull @Override
+    protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+        View view = inflater.inflate(R.layout.controller_gallery, container, false);
 //        RingApplication.getComponent().inject(this);
         loadImage();
 //        refreshLayout.setColorSchemeResources(R.color.colorAccent);
 //        refreshLayout.setOnRefreshListener(this::loadImage);
+        return view;
     }
 
     private void loadImage() {
