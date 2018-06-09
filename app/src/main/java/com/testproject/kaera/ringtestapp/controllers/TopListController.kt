@@ -17,6 +17,7 @@ import com.testproject.kaera.ringtestapp.ui.util.SwipeLayoutProgressSwitcher
 import com.testproject.kaera.ringtestapp.util.getComponent
 import io.techery.janet.ActionPipe
 import kotlinx.android.synthetic.main.controller_top_list.view.*
+import rx.functions.Action1
 import javax.inject.Inject
 
 /**
@@ -45,7 +46,7 @@ class TopListController(args: Bundle?) : BaseController(args) {
         val view = inflater.inflate(R.layout.controller_top_list, container, false)
         recyclerViewWrapper = RecyclerViewWrapper(view.recycler_view)
         adapter = TopListAdapter()
-        adapter.setThumbnailClickListener({ this.onThumbnailClick(it) })
+        adapter.setThumbnailClickListener(Action1 { onThumbnailClick(it) })
         recyclerViewWrapper.setAdapter(adapter)
         recyclerViewWrapper.setEndlessCallback(EndlessCallback(THRESHOLD) {
             val itemCount = adapter.itemCount

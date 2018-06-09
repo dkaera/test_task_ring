@@ -2,6 +2,7 @@ package com.testproject.kaera.ringtestapp.service.util
 
 import android.content.Context
 import com.testproject.kaera.ringtestapp.RingApplication
+import com.testproject.kaera.ringtestapp.util.getComponent
 import io.techery.janet.*
 
 /**
@@ -9,11 +10,10 @@ import io.techery.janet.*
  */
 class InjectableCommandsActionService(var context: Context, actionService: ActionService) : ActionServiceWrapper(actionService) {
 
-    private val injector: CommandInjector
+    val injector: CommandInjector
 
     init {
-        val ringApplication = context.applicationContext as RingApplication
-        injector = CommandInjector(ringApplication.component)
+        injector = CommandInjector(context.getComponent())
     }
 
     override fun <A : Any?> onInterceptProgress(holder: ActionHolder<A>?, progress: Int) {
@@ -23,7 +23,7 @@ class InjectableCommandsActionService(var context: Context, actionService: Actio
     }
 
     override fun <A : Any?> onInterceptSend(holder: ActionHolder<A>?): Boolean {
-        injector.inject(holder!!.action() as Command<A>)
+        injector.inject(holder?.action() as Command<A>)
         return false
     }
 

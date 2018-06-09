@@ -18,7 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public abstract class BaseController extends RefWatchingController {
 
     public BaseController() {
-        super();
+        super(null);
     }
 
     public BaseController(Bundle args) {
