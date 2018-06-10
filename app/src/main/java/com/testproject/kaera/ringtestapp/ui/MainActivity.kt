@@ -1,6 +1,7 @@
 package com.testproject.kaera.ringtestapp.ui
 
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
@@ -29,5 +30,9 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
 
     override fun onBackPressed() {
         if (!router!!.handleBack()) super.onBackPressed()
+    }
+
+    override fun getSupportActionBar(): ActionBar {
+        return super.getSupportActionBar()!!
     }
 }

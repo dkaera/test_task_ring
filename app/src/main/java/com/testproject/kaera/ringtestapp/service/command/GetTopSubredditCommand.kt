@@ -12,7 +12,9 @@ import javax.inject.Inject
  * Created by Dmitriy Puzak on 5/8/18.
  */
 @CommandAction
-class GetTopSubredditCommand constructor(var afterId: String? = null, var count: Int = 0, var fromCache: Boolean = false) : Command<List<APIRedditItem>>() {
+class GetTopSubredditCommand constructor(var afterId: String? = null,
+                                         var count: Int = 0,
+                                         var fromCache: Boolean = false) : Command<List<APIRedditItem>>() {
 
     @Inject
     lateinit var janet: Janet

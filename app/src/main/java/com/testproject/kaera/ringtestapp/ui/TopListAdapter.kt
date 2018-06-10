@@ -20,7 +20,7 @@ class TopListAdapter : RecyclerViewAdapter<APIRedditItem, ViewHolder> {
     private val commentsPrefix = "%d comments"
     private val authorPrefix = "submitted by %s"
 
-    private lateinit var thumbnailClickAction: Action1<APIRedditItem>
+    private var thumbnailClickAction = Action1<APIRedditItem> { }
 
     constructor() : super(null)
 
@@ -44,7 +44,7 @@ class TopListAdapter : RecyclerViewAdapter<APIRedditItem, ViewHolder> {
             submitted_by.text = String.format(authorPrefix, item.author)
             time.text = dateFormat.format(item.createdDate)
             Picasso.get().load(item.thumbnail).fit().centerInside().into(thumbnail_image)
-            thumbnail_image.setOnClickListener { thumbnailClickAction?.call(item) }
+            thumbnail_image.setOnClickListener { thumbnailClickAction.call(item) }
         }
     }
 
