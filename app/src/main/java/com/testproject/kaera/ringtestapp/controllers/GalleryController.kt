@@ -23,6 +23,7 @@ import com.testproject.kaera.ringtestapp.util.SimpleTargetCallback
 import com.testproject.kaera.ringtestapp.util.getComponent
 import io.techery.janet.ActionPipe
 import kotlinx.android.synthetic.main.controller_gallery.view.*
+import rx.functions.Action1
 import java.lang.Exception
 import java.net.URI
 import java.net.URISyntaxException
@@ -31,7 +32,7 @@ import javax.inject.Inject
 class GalleryController(args: Bundle?) : BaseController(args) {
 
     companion object {
-        var KEY_URL: String = "key_url"
+        const val KEY_URL = "key_url"
     }
 
     private var loadedBitmap: Bitmap? = null
@@ -42,7 +43,7 @@ class GalleryController(args: Bundle?) : BaseController(args) {
     constructor(thumbUrl: String) : this(BundleBuilder()
             .putCharSequence(KEY_URL, thumbUrl)
             .build()) {
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
     }
 
     override fun onAttach(view: View) {
@@ -51,7 +52,7 @@ class GalleryController(args: Bundle?) : BaseController(args) {
         bindPipe(saveImageCommand)
                 .afterEach(SwipeLayoutProgressSwitcher(view.refresh_layout))
                 .onSuccess({ showToast(R.string.success_message_save_image) })
-                .onFail { t1, t2 -> showToast(R.string.error_message_save_image) }
+                .onFail { _, _ -> showToast(R.string.error_message_save_image) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -109,13 +110,13 @@ class GalleryController(args: Bundle?) : BaseController(args) {
 
     private fun showDialog() {
         router.pushController(RouterTransaction.with(DialogController("Conductor", "Do you want to save image")
-                .setDialogCallback({ onResult(it) }))
+                .setDialogCallback(Action1 { onResult(it) }))
                 .popChangeHandler(FadeChangeHandler())
                 .pushChangeHandler(FadeChangeHandler(false)))
     }
 
-    private fun onResult(result: DialogController.DialogCallback.Result) {
-        if (result == DialogController.DialogCallback.Result.OK) {
+    private fun onResult(result: Boolean) {
+        if (result) {
             val title = getImageName(args.getCharSequence(KEY_URL).toString())
             saveImageCommand.send(SaveImageCommand(loadedBitmap, title))
         }
