@@ -1,7 +1,6 @@
 package com.testproject.kaera.ringtestapp.service.util
 
 import android.content.Context
-import com.testproject.kaera.ringtestapp.RingApplication
 import com.testproject.kaera.ringtestapp.util.getComponent
 import io.techery.janet.*
 

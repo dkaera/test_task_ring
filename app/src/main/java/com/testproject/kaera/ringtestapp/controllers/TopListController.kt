@@ -50,7 +50,7 @@ class TopListController(args: Bundle?) : BaseController(args) {
         recyclerViewWrapper.setAdapter(adapter)
         recyclerViewWrapper.setEndlessCallback(EndlessCallback(THRESHOLD) {
             val itemCount = adapter.itemCount
-            val name = adapter.getItem(itemCount - 1)!!.name
+            val name = adapter.getItem(itemCount - 1)!!.getName()
             loadNext(name, itemCount)
         })
         view.refresh_layout.setColorSchemeResources(R.color.colorAccent)
@@ -59,15 +59,15 @@ class TopListController(args: Bundle?) : BaseController(args) {
     }
 
     private fun onThumbnailClick(model: APIRedditItem) {
-        if (TextUtils.isEmpty(model.thumbFullSize)) return
-        router.pushController(RouterTransaction.with(GalleryController(model.thumbFullSize)))
+        if (TextUtils.isEmpty(model.getThumbFullSize())) return
+        router.pushController(RouterTransaction.with(GalleryController(model.getThumbFullSize())))
     }
 
     private fun loadData() {
         getTopSubredditPipe.send(GetTopSubredditCommand(null, 0, true))
     }
 
-    private fun loadNext(afterId: String, count: Int) {
+    private fun loadNext(afterId: String?, count: Int) {
         getTopSubredditPipe.send(GetTopSubredditCommand(afterId, count, false))
     }
 

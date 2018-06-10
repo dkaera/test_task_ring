@@ -5,8 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.util.Log
-import android.util.TypedValue
 import android.view.*
 import android.widget.Toast
 import com.bluelinelabs.conductor.ControllerChangeHandler
@@ -40,7 +38,7 @@ class GalleryController(args: Bundle?) : BaseController(args) {
     @Inject
     lateinit var saveImageCommand: ActionPipe<SaveImageCommand>
 
-    constructor(thumbUrl: String) : this(BundleBuilder()
+    constructor(thumbUrl: String?) : this(BundleBuilder()
             .putCharSequence(KEY_URL, thumbUrl)
             .build()) {
         setHasOptionsMenu(true)

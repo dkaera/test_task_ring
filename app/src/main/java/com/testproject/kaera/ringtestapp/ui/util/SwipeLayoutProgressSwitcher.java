@@ -2,8 +2,6 @@ package com.testproject.kaera.ringtestapp.ui.util;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 
-import com.testproject.kaera.ringtestapp.controllers.base.BaseController;
-
 import io.techery.janet.ActionState;
 import rx.functions.Action1;
 

@@ -39,11 +39,11 @@ class TopListAdapter : RecyclerViewAdapter<APIRedditItem, ViewHolder> {
 
         internal fun bind(item: APIRedditItem?) {
             this.item = item
-            tv_title.text = item!!.title
-            comment_count.text = String.format(commentsPrefix, item.commentsCount)
-            submitted_by.text = String.format(authorPrefix, item.author)
-            time.text = dateFormat.format(item.createdDate)
-            Picasso.get().load(item.thumbnail).fit().centerInside().into(thumbnail_image)
+            tv_title.text = item!!.getTitle()
+            comment_count.text = String.format(commentsPrefix, item.getCommentsCount())
+            submitted_by.text = String.format(authorPrefix, item.getAuthor())
+            time.text = dateFormat.format(item.getCreatedDate())
+            Picasso.get().load(item.getThumbnail()).fit().centerInside().into(thumbnail_image)
             thumbnail_image.setOnClickListener { thumbnailClickAction.call(item) }
         }
     }
