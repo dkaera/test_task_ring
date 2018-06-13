@@ -37,7 +37,7 @@ class TopListController(args: Bundle?) : BaseController(args) {
         super.onAttach(view)
         bindPipe(getTopSubredditPipe)
                 .afterEach(SwipeLayoutProgressSwitcher(view.refresh_layout))
-                .onSuccess({ this.putData(it) })
+                .onSuccess(Action1 { putData(it) })
         loadData()
     }
 

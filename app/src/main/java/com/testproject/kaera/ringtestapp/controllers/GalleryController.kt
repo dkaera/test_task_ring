@@ -22,6 +22,7 @@ import com.testproject.kaera.ringtestapp.util.getComponent
 import io.techery.janet.ActionPipe
 import kotlinx.android.synthetic.main.controller_gallery.view.*
 import rx.functions.Action1
+import rx.functions.Action2
 import java.lang.Exception
 import java.net.URI
 import java.net.URISyntaxException
@@ -49,8 +50,8 @@ class GalleryController(args: Bundle?) : BaseController(args) {
         requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE), 0)
         bindPipe(saveImageCommand)
                 .afterEach(SwipeLayoutProgressSwitcher(view.refresh_layout))
-                .onSuccess({ showToast(R.string.success_message_save_image) })
-                .onFail { _, _ -> showToast(R.string.error_message_save_image) }
+                .onSuccess(Action1 { showToast(R.string.success_message_save_image) })
+                .onFail(Action2 { _, _ -> showToast(R.string.error_message_save_image) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
