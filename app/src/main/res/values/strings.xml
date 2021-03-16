@@ -7,4 +7,5 @@
     <string name="error_message_save_image">Sorry, image saving error</string>
     <string name="success_message_save_image">Congrats, image was saved successfully</string>
     <string name="test">test</string>
+    <string name="test2">test 2</string>
 </resources>
